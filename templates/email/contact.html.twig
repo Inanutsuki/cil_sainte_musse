@@ -1,0 +1,8 @@
+<div>
+    <h1>Nouvelle demande de contact</h1>
+    <p>Monsieur {{ contact.lastName }} {{ contact.firstName }} souhaiterais vous contacter pour :</p>
+    <p>{{ contact.message | nl2br }}</p>
+    <h5>Coordonnées du contact :</h5>
+    <p>{{ contact.email }}</p>
+    <p>{{ contact.phone}}</p>
+</div>

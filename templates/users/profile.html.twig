@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{# {% form_theme form_register 'bootstrap_4_layout.html.twig' %} #}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="row justify-content-center mt-3 mb-3">
+		<div class="col-md-10">
+			<div class="card">
+				<div class="card-header">Profile de
+					{{ app.user.lastName }}
+					{{ app.user.firstName }}</div>
+				<div class="card-body">
+					<formclass="form-horizontal">
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Nom :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.lastName }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Prénom :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.firstName }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Email :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.email }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Adresse :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.adresse }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Ville :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.city }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Code postale :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.zipCode }}" disabled>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-4 col-form-label text-right" for="lastName">Date de naissance :</label>
+							<div class="col-sm-8">
+								<input class="form-control" type="text" id="lastName" value="{{ app.user.birthday ? app.user.birthday|date('d-m-Y') : '' }}" disabled>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col d-flex flex-row justify-content-end">
+								<button class="btn btn-primary mr-3">
+									<a href="{{ path('user_edit', {'id': app.user.id}) }}">Editer</a>
+								</button>
+								<button class="btn btn-primary">
+									<a href="{{ path('app_forgot_password_request') }}">Modifier mot de passe</a>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

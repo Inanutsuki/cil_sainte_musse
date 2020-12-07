@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+<div class="row justify-content-center mt-3 mb-3">
+	<div class="col-md-8">
+		<div class="card">
+			<div class="card-header">Editer votre profile</div>
+			<div class="card-body">
+
+				<form class="form-horizontal" method="post" action="#">
+					{{ form_row(form.lastName, {'label':"Votre Nom :"}) }}
+					{{ form_row(form.firstName, {'label':"Votre Prénom :"}) }}
+					<small class="text-warning">Modifier votre adresse mail modifira votre identifiant de connexion.</small>
+					{{ form_row(form.email, {'label':"Votre email :"}) }}
+                    {{ form_row(form.birthday, {'label':"Votre date de naissance :"}) }}
+					{{ form_row(form.adresse, {'label':"Votre adresse :"}) }}
+					{{ form_row(form.city, {'label':"Votre ville :"}) }}
+					{{ form_row(form.zipCode, {'label':"Votre code postale :"}) }}
+                    {{ form_widget(form) }}
+					<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{{ form_end(form) }}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form_register 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form_register) }}
+	<div class="row justify-content-center mt-3 mb-3">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="card-header">S'inscrire au site CIL Sainte Musse</div>
+				<div class="card-body">
+
+					<form class="form-horizontal" method="post" action="#">
+						{{ form_row(form_register.lastName, {'label':"Votre Nom :"}) }}
+						{{ form_row(form_register.firstName, {'label':"Votre Prénom :"}) }}
+						{{ form_row(form_register.email, {'label':"Votre email :"}) }}
+						{{ form_row(form_register.birthday, {'label':"Votre date de naissance :"}) }}
+						{{ form_row(form_register.adresse, {'label':"Votre adresse :"}) }}
+						{{ form_row(form_register.city, {'label':"Votre ville :"}) }}
+						{{ form_row(form_register.zipCode, {'label':"Votre code postale :"}) }}
+						{{ form_widget(form_register) }}
+						<input type="submit" class="btn btn-primary" value="S'enregistrer">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{{ form_end(form_register) }}
+
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Email de modification de mot de passe envoyé{% endblock %}
+
+{% block body %}
+    <p>Un email vous a été envoyé, il contient un lien pour éffectuer la modification du mot de passe. Ce lien expirera dans {{ tokenLifetime|date('g') }} heure(s).</p>
+    <p>Si vous ne reçevez pas l'email, veuillez vérifier vos spams ou <a href="{{ path('app_forgot_password_request') }}">éssayez à nouveau</a>.</p>
+{% endblock %}

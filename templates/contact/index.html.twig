@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form_contact 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	{{ form_start(form_contact) }}
+	<div class="row flex-column align-content-center">
+		<h1 class="text-center">Nous contacter</h1>
+		{% include "layouts/includes/flash_messages.html.twig" %}
+		<div class="col-8">
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					{{ form_row(form_contact.lastName, {'label':"Votre Nom :", 'class':"form-control"}) }}
+				</div>
+				<div class="form-group col-md-6">
+					{{ form_row(form_contact.firstName, {'label':"Votre Prénom :", 'class':"form-control"}) }}
+				</div>
+			</div>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					{{ form_row(form_contact.email, {'label':"Votre email :", 'class':"form-control"}) }}
+				</div>
+				<div class="form-group col-md-6">
+					{{ form_row(form_contact.phone, {'label':"Votre numéro de téléphone :", 'class':"form-control"}) }}
+				</div>
+			</div>
+			{{ form_row(form_contact.message, {'label':"Votre message :", 'class':"form-control"}) }}
+			<input type="submit" class="btn btn-primary" value="Envoyer">
+			{{ form_end(form_contact) }}
+		</div>
+	</div>
+
+
+{% endblock %}
