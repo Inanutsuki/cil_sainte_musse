@@ -7,20 +7,18 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/users")
  */
 class UserController extends AbstractController
 {
     /**
      * @Route("/", name="user_index", methods={"GET"})
-     * 
      * @isGranted("ROLE_ADMIN")
      */
     public function index(UserRepository $userRepository): Response
@@ -55,27 +53,6 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profile", name="user_profil")
-     * @Route("/{id}", name="user_show", methods={"GET"})
-     */
-    public function show(?User $user, Request $request, UserRepository $userRepository): Response
-    {
-        // dump($this->get('request_stack')->getCurrentRequest()->attributes->get('id'));
-        // $id = $this->get('request_stack')->getCurrentRequest()->attributes->get('id');
-        if (!$user->getId()) {
-            return $this->render('user/show.html.twig', [
-                'title' => "Votre profile"
-            ]);
-        }
-
-            $user = $userRepository->find($id);
-
-            return $this->render('user/show.html.twig', [
-                'user' => $user
-            ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user, EntityManagerInterface $manager): Response
@@ -98,6 +75,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @isGranted("ROLE_ADMIN")
      */
     public function delete(Request $request, User $user): Response
     {
@@ -108,5 +86,20 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('user_index');
+    }
+
+    /**
+     * @Route("/{id}", name="user_show", methods={"GET"})
+     */
+    public function show(UserRepository $userRepository, $id): Response
+    {
+        if ($id === 'me') {
+            $user = $this->getUser();
+        } else {
+            $user = $userRepository->findOneBy(array('id' => $id));
+        }
+        return $this->render('user/show.html.twig', [
+            'user' => $user,
+        ]);
     }
 }
