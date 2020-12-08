@@ -18,7 +18,8 @@ class HomeController extends AbstractController
     public function index(): Response
     {
         return $this->render('home/index.html.twig', [
-            'title' => "CIL Sainte Musse"
+            'title' => "CIL Sainte Musse",
+            'current_page' => 'accueil'
         ]);
     }
 
@@ -29,7 +30,8 @@ class HomeController extends AbstractController
     public function profile(EntityManagerInterface $manager, Request $request): Response
     {
         return $this->render('users/profile.html.twig', [
-            'title' => "Votre profile"
+            'title' => "Votre profil",
+            'current_page' => 'profil',
         ]);
     }
 }

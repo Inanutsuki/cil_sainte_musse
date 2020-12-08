@@ -19,7 +19,8 @@ class SecurityController extends AbstractController
     public function login(): Response
     {
         return $this->render('security/login.html.twig', [
-            'title' => "Connexion"
+            'title' => "Connexion",
+            'current_page' => 'connexion',
         ]);
     }
 
@@ -28,7 +29,7 @@ class SecurityController extends AbstractController
      */
     public function logout():Response
     {
-        throw new \LogicException('Cette méthode peut être vide, elle sera intercepté par la clef logout dans le firwall (security.yaml).');
+        throw new \LogicException('Cette méthode peut être vide, elle sera intercepté par la clef logout dans le firewall (security.yaml).');
     }
     
     
@@ -57,6 +58,7 @@ class SecurityController extends AbstractController
 
         return $this->render('security/register.html.twig', [
             'title' => "S'enregistrer",
+            'current_page' => 'enregistrer',
             'form_register' => $form_register->createView()
         ]);    
     }

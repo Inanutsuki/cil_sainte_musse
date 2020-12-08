@@ -23,7 +23,7 @@ class UserRegistrationFormType extends AbstractType
             ->add('email', EmailType::class)
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
-                'invalid_message' => "Vous n'avez pas tapez les mêmes mots de passe",
+                'invalid_message' => "Vous n'avez pas tapé les mêmes mots de passe",
                 'options' => ['attr' => ['class' => 'password-field']],
                 'required' => true,
                 'first_options'  => ['label' => "Votre mot de passe :"],

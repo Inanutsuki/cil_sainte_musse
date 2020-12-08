@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+<h1>Bienvenue {{app.user.firstName}}</h1>
+
+<div class="row">
+	<div class="col">
+		<a href="{{path('admin_user_index')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des  ">Liste des utilisateurs</button></a>
+	</div>
+</div>
+
+{% endblock %}

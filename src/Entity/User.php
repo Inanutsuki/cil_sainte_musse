@@ -70,7 +70,7 @@ class User implements UserInterface
     private $birthday;
 
     /**
-     * @ORM\Column(name="roles", type="array")
+     * @ORM\Column(name="roles", type="json_array")
      */
     private $roles = array();
 
@@ -202,6 +202,7 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
+
     public function getRoles()
     {
         if (empty($this->roles)) {
@@ -210,9 +211,10 @@ class User implements UserInterface
         return $this->roles;
     }
 
-    function setRoles($role)
+    public function setRoles($role)
     {
         $this->roles[] = $role;
+        return $this;
     }
 
     /** @see \Serializable::serialize() */
@@ -222,6 +224,7 @@ class User implements UserInterface
             $this->id,
             $this->email,
             $this->password,
+            $this->roles,
         ));
     }
 
@@ -232,6 +235,12 @@ class User implements UserInterface
             $this->id,
             $this->email,
             $this->password,
+            $this->roles,
         ) = unserialize($serialized);
+    }
+
+    public function isAdmin()
+    {
+        return in_array("ROLE_ADMIN", $this->getRoles());
     }
 }
