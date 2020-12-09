@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,14 +25,15 @@ class HomeController extends AbstractController
     }
 
     /**
-     * @Route("/user_profile", name="app_profile", methods={"GET"})
+     * @Route("/actualités", name="app_news", methods={"GET"})
      * @isGranted("ROLE_USER")
      */
-    public function profile(EntityManagerInterface $manager, Request $request): Response
+    public function profile(PostRepository $postRepository): Response
     {
-        return $this->render('users/profile.html.twig', [
-            'title' => "Votre profil",
-            'current_page' => 'profil',
+        return $this->render('home/news.html.twig', [
+            'posts' => $postRepository->findAll(),
+            'title' => "Les actualites",
+            'current_page' => 'news',
         ]);
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 /**
  * @Route("/admin", name="admin_")
  * @isGranted("ROLE_ADMIN")
@@ -25,7 +27,7 @@ class AdminController extends AbstractController
             'current_page' => 'panneau_admin',
         ]);
     }
-    
+
     /**
      * @Route("/users", name="user_index", methods={"GET"})
      */
@@ -36,6 +38,17 @@ class AdminController extends AbstractController
             'title' => "Liste des utilisateurs"
         ]);
     }
+
+    /**
+     * @Route("/posts", name="post_index", methods={"GET"})
+     */
+    public function postList(PostRepository $postRepository): Response
+    {
+        return $this->render('post/index.html.twig', [
+            'posts' => $postRepository->findAll(),
+        ]);
+    }
+
     /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
