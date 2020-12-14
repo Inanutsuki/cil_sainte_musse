@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap");
+
+@import "shared/variables";
+
+@import "~bootstrap/scss/bootstrap";
+
+body {
+    background-color: #888;
+    font-family: $primary-font, sans-serif;
+}
+
+button {
+    a {
+        color: white;
+        &:hover {
+            color: white;
+        }
+    }
+}

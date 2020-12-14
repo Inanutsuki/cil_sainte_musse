@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\PostRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,10 +28,17 @@ class HomeController extends AbstractController
      * @Route("/actualités", name="app_news", methods={"GET"})
      * @isGranted("ROLE_USER")
      */
-    public function profile(PostRepository $postRepository): Response
+    public function actualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $data = $postRepository->findAll();
+        $posts = $paginator->paginate(
+           $data, // On passe les données.
+           $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
+            5 // Nombre d'éléments par page.
+        );
+
         return $this->render('home/news.html.twig', [
-            'posts' => $postRepository->findAll(),
+            'posts' => $posts,
             'title' => "Les actualites",
             'current_page' => 'news',
         ]);
