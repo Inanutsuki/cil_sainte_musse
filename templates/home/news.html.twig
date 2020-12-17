@@ -11,6 +11,7 @@
 		<div class="container-fluid d-flex flex-column align-items-center">
 			<div class="card mb-3 col-8">
 				<div class="card-body">
+				<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
 					<h5 class="card-title">{{post.title}}</h5>
 					<p class="card-text">{{post.content}}</p>
 					<div class="row">

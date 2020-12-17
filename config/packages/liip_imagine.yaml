@@ -1,0 +1,17 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+    filter_sets:
+    #     article_view_thumbnail:
+    #         filters:
+    #             thumbnail:
+    #                 size: [600, 600]
+    #                 mode: outbound
+    #                 allow_upscale: true
+                
+        edit_article_view_thumbnail:
+            filters:
+                downscale:
+                    max: [800, 600]

@@ -22,6 +22,10 @@ class PostType extends AbstractType
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer l\'image ?',
                 'download_uri' => false,
+                'imagine_pattern' => 'edit_article_view_thumbnail',
+                'attr' => [
+                    'value' => 'lol'
+                ]
             ])
         ;
     }
