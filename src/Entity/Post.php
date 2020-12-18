@@ -61,6 +61,11 @@ class Post
      */
     private $imageFile;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValided;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -161,5 +166,17 @@ class Post
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getIsValided(): ?bool
+    {
+        return $this->isValided;
+    }
+
+    public function setIsValided(bool $isValided): self
+    {
+        $this->isValided = $isValided;
+
+        return $this;
     }
 }

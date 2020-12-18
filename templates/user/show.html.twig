@@ -59,7 +59,10 @@
 								<label class="col-sm-4 col-form-label text-right" for="roles">Role :
 								</label>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" id="roles" value="{% for role in user.roles %}{{role}}{% endfor %}" disabled>
+								<pre>
+									{{ dump(user.roles) }}
+								</pre>
+									{# <input class="form-control" type="text" id="roles" value="{% for role in user.roles %}{{role}}{% endfor %}" disabled> #}
 								</div>
 							</div>
 						{% endif %}

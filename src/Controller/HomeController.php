@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,14 +27,13 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/actualités", name="app_news", methods={"GET"})
-     * @isGranted("ROLE_USER")
      */
-    public function actualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
+    public function actualities(EntityManagerInterface $em, PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findAll();
+        $dataIsValided = $postRepository->findBy(array( 'isValided' => '1'));
         $posts = $paginator->paginate(
-           $data, // On passe les données.
-           $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
+            $dataIsValided, // On passe les données.
+            $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
             5 // Nombre d'éléments par page.
         );
 
