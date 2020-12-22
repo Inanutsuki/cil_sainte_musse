@@ -4,14 +4,14 @@ liip_imagine:
     driver: "gd"
 
     filter_sets:
-    #     article_view_thumbnail:
-    #         filters:
-    #             thumbnail:
-    #                 size: [600, 600]
-    #                 mode: outbound
-    #                 allow_upscale: true
                 
         edit_article_view_thumbnail:
             filters:
                 downscale:
                     max: [800, 600]
+        
+        users_thumbnail:
+          quality: 75
+          filters:
+              auto_rotate: ~
+              thumbnail: { size: [100, 100], mode: outbound }

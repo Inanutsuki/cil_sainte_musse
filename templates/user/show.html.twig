@@ -10,85 +10,92 @@
 				<div class="card-header">Profile de
 					{{ user.lastName }}
 					{{ user.firstName }}</div>
-				<div class="card-body">
-					<formclass="form-horizontal">
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="lastName">Nom :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="lastName" value="{{ user.lastName }}" disabled>
+				<div class="col-8 mx-auto">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-sm-8 offset-sm-4">
+								<img class="rounded-circle mx-auto mb-4 d-block" src="{{ vich_uploader_asset(user, 'imageFile') }}">
 							</div>
 						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="firstName">Prénom :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="firstName" value="{{ user.firstName }}" disabled>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="email">Email :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="email" value="{{ user.email }}" disabled>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="adresse">Adresse :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="adresse" value="{{ user.adresse }}" disabled>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="city">Ville :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="city" value="{{ user.city }}" disabled>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="zipCode">Code postale :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="zipCode" value="{{ user.zipCode }}" disabled>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-sm-4 col-form-label text-right" for="birthday">Date de naissance :</label>
-							<div class="col-sm-8">
-								<input class="form-control" type="text" id="birthday" value="{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}" disabled>
-							</div>
-						</div>
-						{% if app.user.roles == ["ROLE_ADMIN"] %}
+						<formclass="form-horizontal">
 							<div class="form-group row">
-								<label class="col-sm-4 col-form-label text-right" for="roles">Role :
-								</label>
+								<label class="col-sm-4 col-form-label text-sm-right" for="lastName">Nom :</label>
 								<div class="col-sm-8">
-									<input class="form-control" type="text" id="roles" value="{% for role in user.roles %}{{role}}{% endfor %}" disabled>
+									<input class="form-control" type="text" id="lastName" value="{{ user.lastName }}" disabled>
 								</div>
 							</div>
-						{% endif %}
-						<div class="row">
-							<div class="col d-flex flex-row justify-content-end">
-								<button class="btn btn-primary mr-3">
-									<a href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
-								</button>
-								{% if app.user.isAdmin %}
-									<button class="btn btn-primary mr-3">
-										<a href="{{ path('my_posts', {'id': user.id}) }}">Ses articles</a>
-									</button>
-								{% else %}
-									<button class="btn btn-primary mr-3">
-										<a href="{{ path('my_posts', {'id': user.id}) }}">Mes articles</a>
-									</button>
-									<button class="btn btn-primary mr-3">
-										<a href="{{ path('app_forgot_password_request') }}">Modifier mot de passe</a>
-									</button>
-								{% endif %}
-								{% if app.user.isAdmin %}
-									<button class="btn btn-primary">
-										<a href="{{ path('admin_user_index') }}">Retourner à la liste</a>
-									</button>
-									{{ include('user/_delete_form.html.twig') }}
-								{% endif %}
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="firstName">Prénom :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="firstName" value="{{ user.firstName }}" disabled>
+								</div>
 							</div>
-						</div>
-					</form>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="email">Email :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="email" value="{{ user.email }}" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="adresse">Adresse :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="adresse" value="{{ user.adresse }}" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="city">Ville :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="city" value="{{ user.city }}" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="zipCode">Code postale :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="zipCode" value="{{ user.zipCode }}" disabled>
+								</div>
+							</div>
+							<div class="form-group row">
+								<label class="col-sm-4 col-form-label text-sm-right" for="birthday">Date de naissance :</label>
+								<div class="col-sm-8">
+									<input class="form-control" type="text" id="birthday" value="{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}" disabled>
+								</div>
+							</div>
+							{% if is_granted('ROLE_ADMIN') %}
+								<div class="form-group row">
+									<label class="col-sm-4 col-form-label text-sm-right" for="roles">Role :
+									</label>
+									<div class="col-sm-8">
+										<input class="form-control" type="text" id="roles" value="{% for role in user.roles %}{{role}}{% endfor %}" disabled>
+									</div>
+								</div>
+							{% endif %}
+							<div class="row">
+								<div class="col d-flex flex-row justify-content-end">
+									<button class="btn btn-primary mr-3">
+										<a href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
+									</button>
+									{% if is_granted('ROLE_ADMIN') %}
+										<button class="btn btn-primary mr-3">
+											<a href="{{ path('my_posts', {'id': user.id}) }}">Ses articles</a>
+										</button>
+									{% else %}
+										<button class="btn btn-primary mr-3">
+											<a href="{{ path('my_posts', {'id': user.id}) }}">Mes articles</a>
+										</button>
+										<button class="btn btn-primary mr-3">
+											<a href="{{ path('app_forgot_password_request') }}">Modifier mot de passe</a>
+										</button>
+									{% endif %}
+									{% if is_granted('ROLE_ADMIN') %}
+										<button class="btn btn-primary">
+											<a href="{{ path('admin_user_index') }}">Retourner à la liste</a>
+										</button>
+										{{ include('user/_delete_form.html.twig') }}
+									{% endif %}
+								</div>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

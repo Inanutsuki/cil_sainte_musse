@@ -3,12 +3,14 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Container7do3ReX\getUserService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -30,23 +32,31 @@ class UserType extends AbstractType
                     'year' => "Année"
                 ]
             ])
-            ->add('roles', CollectionType::class, [
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image (fichier JPG ou PNG)',
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image ?',
+                'download_uri' => false,
+                'imagine_pattern' => 'users_thumbnail',
+            ]);
+        if (in_array('ROLE_ADMIN', $options['roles'])) {
+
+            $builder->add('roles', CollectionType::class, [
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                     'label' => false,
-                    'choices' => [
-                        'Utilisateur' => 'ROLE_USER',
-                        'Editeur' => 'ROLE_EDITOR',
-                        'Admin' => 'ROLE_ADMIN',
-                    ],
+                    'choices' => User::EDITABLE_ROLES,
                 ],
             ]);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'roles' => null,
         ]);
     }
 }

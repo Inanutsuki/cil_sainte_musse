@@ -6,28 +6,31 @@
 {% block body %}
 	<h1>Post index</h1>
 
-	<table class="table">
+	<table class="table-sm table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
-				<th>Title</th>
-				<th>Content</th>
-				<th>Auteur</th>
-				<th>CreatedAt</th>
-				<th>ModifiedAt</th>
-				<th>actions</th>
+				<th class="no-wrap" scope="col">Id</th>
+				<th class="no-wrap" scope="col">Titre</th>
+				<th class="no-wrap" scope="col">Auteur</th>
+				<th class="no-wrap" scope="col">Ajouté le</th>
+				<th class="no-wrap" scope="col">Modifié le</th>
+				<th class="no-wrap" scope="col">Validé</th>
+				<th class="no-wrap" scope="col">Actions</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for post in posts %}
 				<tr>
-					<td>{{ post.id }}</td>
-					<td>{{ post.title }}</td>
-					<td>{{ post.content }}</td>
-					<td>{{ post.author }}</td>
-					<td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>{{ post.modifiedAt ? post.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
-					<td>
+					<td data-label="id">{{ post.id }}</td>
+					<td data-label="Titre">{{ post.title }}</td>
+					<td data-label="Auteur">{{ post.author }}</td>
+					<td data-label="Ajouté le" class="no-wrap">{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
+					<td data-label="Modifié le" class="no-wrap">{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '<small class="text-muted">Pas modifié</small>' }}</td>
+					<td data-label="Validé">
+						{% if post.isValided == false %}En attente{% else %}Validé
+						{% endif %}
+					</td>
+					<td data-label="Actions">
 						<a href="{{ path('post_show', {'id': post.id}) }}">show</a>
 						<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 					</td>
@@ -39,7 +42,7 @@
 			{% endfor %}
 		</tbody>
 	</table>
-    {% if id is defined and app.user.id == id %}
-		<a class="btn btn-primary"  href="{{ path('post_new') }}">Créer un nouvel article</a>
-    {% endif %}
+	{% if id is defined and app.user.id == id %}
+		<a class="btn btn-primary" href="{{ path('post_new') }}">Créer un nouvel article</a>
+	{% endif %}
 {% endblock %}

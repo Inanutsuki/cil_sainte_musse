@@ -26,11 +26,10 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/actualités", name="app_news", methods={"GET"})
-     * @isGranted("ROLE_USER")
      */
     public function actualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findAll();
+        $data = $postRepository->findBy(array('isValided' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
            $data, // On passe les données.
            $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.

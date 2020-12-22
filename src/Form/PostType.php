@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Post;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -15,7 +16,6 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('imageName')
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image (fichier JPG ou PNG)',
                 'required' => false,
@@ -23,10 +23,11 @@ class PostType extends AbstractType
                 'delete_label' => 'Supprimer l\'image ?',
                 'download_uri' => false,
                 'imagine_pattern' => 'edit_article_view_thumbnail',
-                'attr' => [
-                    'value' => 'lol'
-                ]
             ])
+            ->add('isValided', CheckboxType::class, [
+                'label'    => "Valider l'article",
+                'required' => false,
+            ]);
         ;
     }
 

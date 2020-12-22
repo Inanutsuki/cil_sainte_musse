@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserRegistrationFormType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,32 +11,43 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/users")
  */
 class UserController extends AbstractController
 {
-     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+    /**
+     * @Route("/register", name="app_register", methods={"GET", "POST"})
      */
-    public function new(Request $request): Response
+    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
-        $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->handleRequest($request);
+        if( !($this->getUser() === Null) ){
+            return $this->redirectToRoute('app_home');
+        }
+        $form_register = $this->createForm(UserRegistrationFormType::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+        $form_register->handleRequest($request);
 
-            return $this->redirectToRoute('admin_user_index');
+        if ($form_register->isSubmitted() && $form_register->isValid()) {
+
+            $user = $form_register->getData();
+
+            $hash = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($hash);
+            $user->setRoles("ROLE_USER");
+
+            $manager->persist($user);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('user/new.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
+        return $this->render('security/register.html.twig', [
+            'title' => "S'enregistrer",
+            'current_page' => 'enregistrer',
+            'form_register' => $form_register->createView()
         ]);
     }
 
@@ -44,11 +56,11 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, ['roles' => $this->getUser()->getRoles()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($user);
+            // $manager->persist($user);
             $manager->flush();
 
             return $this->redirectToRoute('user_show', [

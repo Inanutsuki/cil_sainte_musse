@@ -32,6 +32,7 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setCreatedAt(new \DateTime('now'));
             $post->setAuthor($user);
+            $post->setIsValided(false);
 
             $manager->persist($post);
             $manager->flush();
@@ -82,8 +83,14 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setModifiedAt(new \DateTime('now'));
-            $manager->flush();
+            if ($post->getIsValided() === true) {
+                $post->setIsValided(true);
+                $post->setModifiedAt(new \DateTime('now'));
+                $manager->flush();
+            } else {
+                $post->setModifiedAt(new \DateTime('now'));
+                $manager->flush();
+            }
 
             return $this->redirectToRoute('my_posts', [
                 'id' => $post->getAuthor()->getId(),

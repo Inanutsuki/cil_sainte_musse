@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}>
+<html lang="{{ app.request.locale }}">
 	<head>
 		<meta charset="UTF-8">
 
@@ -16,13 +16,18 @@
 
 	</head>
 	<body>
+		<div class="container">
+			<div class="row">
+				<div class="img" id="img"></div>
+			</div>
+		</div>
 		{% include "layouts/includes/navbar.html.twig" %}
 		<div class="container"> {% block body %}{% endblock %}
 			</div>
 
 
 			{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
+				{{ encore_entry_script_tags('app') }}
 			{% endblock %}
 		</body>
 	</html>

@@ -31,35 +31,4 @@ class SecurityController extends AbstractController
     {
         throw new \LogicException('Cette méthode peut être vide, elle sera intercepté par la clef logout dans le firewall (security.yaml).');
     }
-    
-    
-    /**
-     * @Route("/register", name="app_register", methods={"GET", "POST"})
-     */
-    public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder):Response
-    {
-        $form_register = $this->createForm(UserRegistrationFormType::class);
-
-        $form_register->handleRequest($request);
-
-        if ($form_register->isSubmitted() && $form_register->isValid()) {
-
-            $user = $form_register->getData();
-
-            $hash = $encoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($hash);
-            $user->setRoles("ROLE_USER");
-
-            $manager->persist($user);
-            $manager->flush();
-
-            return $this->redirectToRoute('app_login');
-        }
-
-        return $this->render('security/register.html.twig', [
-            'title' => "S'enregistrer",
-            'current_page' => 'enregistrer',
-            'form_register' => $form_register->createView()
-        ]);    
-    }
 }

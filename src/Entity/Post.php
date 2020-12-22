@@ -48,6 +48,11 @@ class Post
     private $author;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isValided;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
@@ -122,6 +127,18 @@ class Post
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getIsValided(): ?bool
+    {
+        return $this->isValided;
+    }
+
+    public function setIsValided(bool $isValided): self
+    {
+        $this->isValided = $isValided;
 
         return $this;
     }
