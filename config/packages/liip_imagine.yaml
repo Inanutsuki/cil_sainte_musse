@@ -10,8 +10,8 @@ liip_imagine:
                 downscale:
                     max: [800, 600]
         
-        users_thumbnail:
-          quality: 75
-          filters:
-              auto_rotate: ~
-              thumbnail: { size: [100, 100], mode: outbound }
+        users_avatar:
+            quality: 85
+            filters:
+                scale:
+                    dim: [ 250, 250 ]

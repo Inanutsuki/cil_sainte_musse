@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\User;
-use Container7do3ReX\getUserService;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -38,7 +37,7 @@ class UserType extends AbstractType
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer l\'image ?',
                 'download_uri' => false,
-                'imagine_pattern' => 'users_thumbnail',
+                'imagine_pattern' => 'users_avatar',
             ]);
         if (in_array('ROLE_ADMIN', $options['roles'])) {
 

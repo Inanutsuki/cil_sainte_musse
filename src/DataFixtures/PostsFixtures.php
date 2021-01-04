@@ -28,6 +28,7 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
             $post = new Post;
             $paragraphs = implode(' ', $faker->paragraphs($nb = $faker->numberBetween($min = 2, $max = 5), $asText = false));
             $user = $this->getReference('userId_' . $faker->numberBetween($min = 2, $max = 30));
+            $post->setIsValided($faker->boolean($chanceOfGettingTrue = 50));
             $post->setTitle($faker->sentence($nbWords = $faker->numberBetween($min = 3, $max = 6), $variableNbWords = true));
             $post->setContent($paragraphs);
             $post->setAuthor($user);

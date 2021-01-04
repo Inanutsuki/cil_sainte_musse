@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserRegistrationFormType extends AbstractType
 {
@@ -40,6 +41,14 @@ class UserRegistrationFormType extends AbstractType
                     'month' => "Mois",
                     'year' => "Année"
                 ]
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Ajouter une photo de profile (fichier JPG ou PNG)',
+                'required' => false,
+                'allow_delete' => true,
+                'delete_label' => 'Supprimer l\'image ?',
+                'download_uri' => false,
+                'imagine_pattern' => 'users_avatar',
             ])
         ;
     }

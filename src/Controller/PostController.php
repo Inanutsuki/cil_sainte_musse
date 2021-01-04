@@ -26,6 +26,7 @@ class PostController extends AbstractController
     {
         $post = new Post();
         $user = $this->getUser();
+        // dd(['roles' => $user->getRoles()]);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
 
@@ -79,15 +80,17 @@ class PostController extends AbstractController
      */
     public function edit(Request $request, Post $post, EntityManagerInterface $manager): Response
     {
-        $form = $this->createForm(PostType::class, $post);
+        $thisUserGetRole = $this->getUser()->getRoles();
+        $form = $this->createForm(PostType::class, $post, ['roles' => $thisUserGetRole]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($post->getIsValided() === true) {
+            if ($post->getIsValided() === true && $thisUserGetRole == ['ROLE_ADMIN']) {
                 $post->setIsValided(true);
                 $post->setModifiedAt(new \DateTime('now'));
                 $manager->flush();
             } else {
+                $post->setIsValided(false);
                 $post->setModifiedAt(new \DateTime('now'));
                 $manager->flush();
             }

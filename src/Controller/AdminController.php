@@ -50,6 +50,26 @@ class AdminController extends AbstractController
     }
 
     /**
+     * @Route("/posts-not-valided", name="post_not_valided", methods={"GET"})
+     */
+    public function postListNotValided(PostRepository $postRepository): Response
+    {
+        return $this->render('post/index.html.twig', [
+            'posts' => $postRepository->findBy(array('isValided' => false), array('createdAt' => 'DESC')),
+        ]);
+    }
+
+    /**
+     * @Route("/posts-valided", name="post_valided", methods={"GET"})
+     */
+    public function postListValided(PostRepository $postRepository): Response
+    {
+        return $this->render('post/index.html.twig', [
+            'posts' => $postRepository->findBy(array('isValided' => true), array('createdAt' => 'DESC')),
+        ]);
+    }
+
+    /**
      * @Route("/{id}", name="user_delete", methods={"DELETE"})
      */
     public function userDelete(Request $request, User $user): Response

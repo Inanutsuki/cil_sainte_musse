@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,18 +24,21 @@ class PostType extends AbstractType
                 'delete_label' => 'Supprimer l\'image ?',
                 'download_uri' => false,
                 'imagine_pattern' => 'edit_article_view_thumbnail',
-            ])
-            ->add('isValided', CheckboxType::class, [
+            ]);
+        if (in_array('ROLE_ADMIN', $options['roles'])) {
+
+            $builder->add('isValided', CheckboxType::class, [
                 'label'    => "Valider l'article",
                 'required' => false,
             ]);
-        ;
+        };
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+            'roles' => null,
         ]);
     }
 }

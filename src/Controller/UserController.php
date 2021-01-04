@@ -36,7 +36,7 @@ class UserController extends AbstractController
 
             $hash = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($hash);
-            $user->setRoles("ROLE_USER");
+            $user->setRoles(["ROLE_USER"]);
 
             $manager->persist($user);
             $manager->flush();

@@ -18,6 +18,18 @@ button {
         }
     }
 }
+.avatar-img{
+    width: 250px;
+    height: auto;
+}
+
+#img {
+    background-image: url("/public/images/banierre-rade-toulon-cci-var-mod.jpg");
+}
+img.rounded-circle{
+    width: 128px;
+    height: 128px;
+}
 
 .no-wrap {
     white-space: nowrap;
@@ -52,13 +64,5 @@ img.rounded-circle{
         content: attr(data-label);
         float: left;
         font-weight: bold;
-    }
-
-    #img {
-        background-image: url("/public/images/banierre-rade-toulon-cci-var-mod.jpg");
-    }
-    img.rounded-circle{
-        width: 128px;
-        height: 128px;
     }
 }

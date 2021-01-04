@@ -5,6 +5,10 @@
 
 {% block body %}
 	<h1>Post index</h1>
+	
+		<a href="{{path('admin_post_index')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button></a>
+		<a href="{{path('admin_post_not_valided')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">En attente de validation</button></a>
+		<a href="{{path('admin_post_valided')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles validés</button></a>
 
 	<table class="table-sm table-striped">
 		<thead>
