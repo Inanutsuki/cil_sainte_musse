@@ -39,6 +39,7 @@ class UserType extends AbstractType
                 'download_uri' => false,
                 'imagine_pattern' => 'users_avatar',
             ]);
+            dd('test');
         if (in_array('ROLE_ADMIN', $options['roles'])) {
 
             $builder->add('roles', CollectionType::class, [
