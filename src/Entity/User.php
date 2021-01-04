@@ -26,10 +26,12 @@ class User implements UserInterface, \Serializable
 {
     public const ROLE_USER = "ROLE_USER";
     public const ROLE_EDITOR = "ROLE_EDITOR";
+    public const ROLE_ASSEMBLY = "ROLE_ASSEMBLY";
     public const ROLE_ADMIN = "ROLE_ADMIN";
     public const EDITABLE_ROLES = [
         'Utilisateur' => Self::ROLE_USER,
         'Editeur' => Self::ROLE_EDITOR,
+        'Assemblé générale' => Self::ROLE_ASSEMBLY,
         'Admin' => Self::ROLE_ADMIN,
     ];
 
@@ -112,6 +114,17 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity=Post::class, mappedBy="author")
      */
     private $posts;
+
+    /**
+     * @ORM\Column(type="json_array")
+     */
+    private $status = [
+        'Membre',
+        'Membre AG',
+        'Secrétaire',
+        'Trésorier',
+        'Président',
+    ];
 
     public function __construct()
     {
@@ -274,6 +287,21 @@ class User implements UserInterface, \Serializable
     public function setRoles($role)
     {
         $this->roles = $role;
+        return $this;
+    }
+
+    public function getStatus(): ?array
+    {
+        if (empty($this->status)) {
+            return 'member';
+        }
+        return $this->status;
+    }
+
+    public function setStatus(array $status): self
+    {
+        $this->status = $status;
+
         return $this;
     }
 

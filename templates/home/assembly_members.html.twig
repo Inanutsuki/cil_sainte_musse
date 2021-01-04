@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<div class="container-fluid">
+		<h1 class="text-center">Les membres de l'assemblé générale</h1>
+		<div class="row d.flex justify-content-center align-items-end">
+			{% for user in listMembersAssembly %}
+				<div class="col-mb-4 mx-3 mb-4 {% if user.status[0] == 'Président' %}order-1{% elseif user.status[0] == " Secrétaire" %}order-2{% elseif user.status[0] == " trésorier" %}order-3{% else %}order-4{% endif %}">
+					<div class="card" style="width: 18rem;">
+						{% if vich_uploader_asset(user, 'imageFile') %}
+							<img class="card-img-top" src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="Photo de {{ user.lastName }} {{ user.firstName }}">
+						{% else %}
+							<img class="card-img-top" src="images/default-avatar.jpg" alt="Photo de {{ user.lastName }} {{ user.firstName }}">
+						{% endif %}
+						<div class="card-body">
+							<h5 class="card-title">{{ user.lastName }}
+								{{ user.firstName }}</h5>
+							{% for status in user.status %}
+								<p class="card-text">{{status}}</p>
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

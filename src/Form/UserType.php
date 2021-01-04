@@ -41,11 +41,25 @@ class UserType extends AbstractType
             ]);
         if (in_array('ROLE_ADMIN', $options['roles'])) {
 
-            $builder->add('roles', CollectionType::class, [
+            $builder
+            ->add('roles', CollectionType::class, [
                 'entry_type'   => ChoiceType::class,
                 'entry_options'  => [
                     'label' => false,
                     'choices' => User::EDITABLE_ROLES,
+                ],
+            ])
+            ->add('status', CollectionType::class, [
+                'entry_type'   => ChoiceType::class,
+                'entry_options'  => [
+                    'label' => false,
+                    'choices' => [
+                        'Membre' => "Membre",
+                        'Membre AG' => "Membre AG",
+                        'Secrétaire' => "Secrétaire",
+                        'Trésorier' => "Trésorier",
+                        'Président' => 'Président'
+                    ],
                 ],
             ]);
         }

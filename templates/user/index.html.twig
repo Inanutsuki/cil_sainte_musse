@@ -18,6 +18,7 @@
 				<th>Code postale</th>
 				<th>Anniversaire</th>
 				<th>Roles</th>
+				<th>Status</th>
 				<th>actions</th>
 			</tr>
 		</thead>
@@ -37,9 +38,16 @@
 								Utilisateur
 							{% elseif  role == "ROLE_EDITOR" %}
 								Editeur
+							{% elseif  role == "ROLE_ASSEMBLY" %}
+								Assemblé générale
 							{% elseif  role == "ROLE_ADMIN" %}
 								Admin
 							{% endif %}
+						{% endfor %}
+					</td>
+					<td>
+						{% for status in user.status %}
+							{{ status }}
 						{% endfor %}
 					</td>
 					<td>

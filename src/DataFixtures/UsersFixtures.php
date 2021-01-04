@@ -34,6 +34,7 @@ class UsersFixtures extends Fixture
         $user->setZipCode("admin");
         $user->setCity("admin");
         $user->setBirthday($faker->dateTime($max = 'now', $timezone = null));
+        $user->setStatus(['Président']);
         $user->setRoles(["ROLE_ADMIN"]);
 
         $manager->persist($user);
@@ -52,6 +53,7 @@ class UsersFixtures extends Fixture
             $user->setZipCode($faker->numberBetween($min = 11111, $max = 99999));
             $user->setCity($faker->city);
             $user->setBirthday($faker->dateTime($max = 'now', $timezone = null));
+            $user->setStatus(['Membre']);
             $user->setRoles(["ROLE_USER"]);
 
             $manager->persist($user);

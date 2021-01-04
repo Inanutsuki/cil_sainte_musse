@@ -12,6 +12,14 @@
 			<li class="nav-item {% if current_page is defined and current_page == 'news' %}active{% else %}''{% endif %}">
 				<a href="{{path('app_news')}}" class="nav-link">Acualités</a>
 			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Administration
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item {% if current_page is defined and current_page == 'members_assembly' %}active{% else %}''{% endif %}" href="{{path('app_members_assembly')}}">Membres de l'assemblé générale</a>
+				</div>
+			</li>
 			<li class="nav-item {% if current_page is defined and current_page == 'contact' %}active{% else %}''{% endif %}">
 				<a href="{{path('app_contact')}}" class="nav-link">Nous contacter</a>
 			</li>
