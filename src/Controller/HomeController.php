@@ -31,6 +31,7 @@ class HomeController extends AbstractController
 
     /**
      * @Route("/membre/actualités", name="app_members_news", methods={"GET"})
+     * @isGranted("ROLE_USER")
      */
     public function membersActualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {

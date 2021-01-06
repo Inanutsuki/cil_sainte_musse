@@ -93,8 +93,6 @@ class AdminController extends AbstractController
         ]);
     }
 
-
-
     /**
      * @Route("/{id}/edit-document", name="document_upload_edit", methods={"GET","POST"})
      */

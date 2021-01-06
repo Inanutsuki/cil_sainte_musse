@@ -34,8 +34,44 @@
 			</tr>
 		</tbody>
 	</table>
+
+
+	<section class="comments">
+		<h1>{{ post.comments | length }}
+			Commentaire :</h1>
+		{% for comment in post.comments %}
+			<div class="comment">
+				<div class="row">
+					<div class="col-3">
+						{{ comment.author }}
+						(<small>{{comment.createdAt | date('d/m/Y à H:i')}}</small>)
+					</div>
+					<div class="col">
+						{{comment.content | raw}}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</section>
+
+	{% if app.user %}
+		{{ form_start(formComment) }}
+
+		{{ form_row(formComment.author, {'attr' : {'placeholder': "Votre nom", 'Value': "#{ app.user.lastName } #{ app.user.firstName }", 'disabled':'disabled'}}) }}
+		{{ form_row(formComment.content, {'attr' : {'placeholder': "Contenu du commentaire"}}) }}
+
+		<button type="submit" class="btn btn-success">Envoyer le commentaire</button>
+
+		{{ form_end(formComment) }}
+
+	{% else %}
+		<h4>Vous ne pouvez pas poster de commentaire si vous n'êtes pas connecté !</h4>
+		<a class="btn btn-primary" href="{{ path('security_login') }}" class="btn btn-primary">Connexion</a>
+	{% endif %}
+
+
 	{% if app.user.id == post.author.id and app.user.isAdmin != true %}
-		<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+		<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
 		{{ include('post/_delete_form.html.twig') }}
 
@@ -43,17 +79,13 @@
 	{% endif %}
 
 	{% if app.user.isAdmin %}
+		<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
+		{{ include('post/_delete_form.html.twig') }}
 
-		<button class="btn btn-primary ml-3">
-			<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
-		</button>
-			{{ include('post/_delete_form.html.twig') }}
-		<button class="btn btn-primary ml-3">
-			<a href="{{ path('admin_post_index') }}">Retourner à la liste</a>
-		</button>
-		<button class="btn btn-primary ml-3">
-			<a href="{{ path('user_show', {'id': post.author.id}) }}">Voir la page de l'auteur</a>
-		</button>
+		<a class="btn btn-primary" href="{{ path('admin_post_index') }}">Retourner à la liste</a>
+
+		<a class="btn btn-primary" href="{{ path('user_show', {'id': post.author.id}) }}">Voir la page de l'auteur</a>
 	{% endif %}
+
 {% endblock %}

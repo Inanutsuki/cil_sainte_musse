@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +19,10 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title' 
+            ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image (fichier JPG ou PNG)',
                 'required' => false,

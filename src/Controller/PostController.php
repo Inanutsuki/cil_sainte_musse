@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Form\CommentType;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 /**
  * @Route("/post")
@@ -67,14 +71,35 @@ class PostController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET"})
+     * @Route("/{id}", name="post_show", methods={"GET", "POST"})
      */
-    public function show(Post $post): Response
+    public function show(Post $post, HttpFoundationRequest $request, EntityManagerInterface $manager)
     {
+        $comment = new Comment();
+        $formComment = $this->createForm(CommentType::class, $comment);
+
+        $formComment->handleRequest($request);
+
+        if ($formComment->isSubmitted() && $formComment->isValid()) {
+            $author = $this->getUser()->getLastName().' '.$this->getUser()->getFirstName();
+
+            $comment->setCreatedAt(new \DateTime('now'));
+            $comment->setPost($post);
+            $comment->setAuthor($author);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('post_show', ['id' => $post->getId()]);
+        }
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'formComment' => $formComment->createView()
         ]);
     }
+
+    
 
     /**
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
