@@ -7,9 +7,18 @@
 {% endblock %}
 
 {% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h2>Nous contacter</h2>
+				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.</p>
+				<a href="mailto:">Email du CIL</a>
+			</div>
+		</div>
+	</div>
 	{{ form_start(form_contact) }}
 	<div class="row flex-column align-content-center">
-		<h1 class="text-center">Nous contacter</h1>
+		<h1 class="text-center">Formulaire de contacte</h1>
 		{% include "layouts/includes/flash_messages.html.twig" %}
 		<div class="col-8">
 			<div class="form-row">
@@ -33,6 +42,4 @@
 			{{ form_end(form_contact) }}
 		</div>
 	</div>
-
-
 {% endblock %}

@@ -18,3 +18,11 @@ $('.custom-file-input').on('change', function (e) {
     var inputFile = e.currentTarget;
     $(inputFile).parent().find('.custom-file-label').html(inputFile.files[0].name);
 });
+
+$(window).scroll(function () {
+    if ($(window).scrollTop() >= 300) {
+        $('.navbar').addClass('fixed-header');
+    } else {
+        $('.navbar').removeClass('fixed-header');
+    }
+});

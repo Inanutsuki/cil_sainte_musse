@@ -11,7 +11,8 @@ liip_imagine:
                     max: [800, 600]
         
         users_avatar:
-            quality: 85
+            quality: 1000
             filters:
-                scale:
-                    dim: [ 250, 250 ]
+                thumbnail  : { size : [100, 100], mode : outbound }
+                # scale:
+                #     dim: [ 286, 286 ]

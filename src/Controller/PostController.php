@@ -26,11 +26,12 @@ class PostController extends AbstractController
     {
         $post = new Post();
         $user = $this->getUser();
-        // dd(['roles' => $user->getRoles()]);
-        $form = $this->createForm(PostType::class, $post);
+        $thisUserGetRole = $this->getUser()->getRoles();
+        $form = $this->createForm(PostType::class, $post, ['roles' => $thisUserGetRole]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $post->setCreatedAt(new \DateTime('now'));
             $post->setAuthor($user);
             $post->setIsValided(false);

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body %}
+	<h1>Espace reservé aux membres de l'assemblée</h1>
+	<div class="row justify-content-center mb-3">
+		{{ knp_pagination_render(posts) }}
+	</div>
+	{% for post in posts %}
+		{% if post.onlyAssembly == true %}
+			<div class="container-fluid d-flex flex-column align-items-center">
+				<div class="card mb-3 col-md-12">
+					<div class="card-body">
+						<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
+						<h5 class="card-title">{{post.title}}</h5>
+						<p class="card-text">{{post.content}}</p>
+						<div class="row">
+							<div class="col">
+								<small class="text-muted">Ecrit par
+									{{ post.author }}
+									le
+									{{ post.createdAt|date('d m Y')}}</small>
+							</div>
+							<div class="col d-flex justify-content-end">
+								{% if app.user.id is defined %}
+
+									{% if app.user.id == post.author.id %}
+										<small class="text-muted mr-2">
+											<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
+										</small>
+										<small class="text-muted">
+											<a href="{{ path('my_posts', {'id': app.user.id}) }}">Voir mes artciles</a>
+										</small>
+									{% elseif app.user.isAdmin %}
+										<small class="text-muted">
+											<a href="{{ path('my_posts', {'id': post.author.id}) }}">Voir articles de l'auteur</a>
+										</small>
+									{% endif %}
+
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endif %}
+	{% endfor %}
+	<div class="row justify-content-center mb-3">
+		{{ knp_pagination_render(posts) }}
+	</div>
+{% endblock %}

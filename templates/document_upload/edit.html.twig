@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit DocumentUpload{% endblock %}
+
+{% block body %}
+    <h1>Edit DocumentUpload</h1>
+
+    {{ include('document_upload/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('document_upload_index') }}">back to list</a>
+
+    {{ include('document_upload/_delete_form.html.twig') }}
+{% endblock %}

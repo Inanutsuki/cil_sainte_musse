@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DocumentUpload{% endblock %}
+
+{% block body %}
+    <h1>Create new DocumentUpload</h1>
+
+    {{ include('document_upload/_form.html.twig') }}
+
+    <a href="{{ path('document_upload_index') }}">back to list</a>
+{% endblock %}

@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
@@ -65,6 +64,21 @@ class Post
      * @var File|null
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onlyMembers = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onlyAssembly = false;
+
+    public function __construct()
+    {
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -178,5 +192,29 @@ class Post
     public function getImageFile(): ?File
     {
         return $this->imageFile;
+    }
+
+    public function getOnlyMembers(): ?bool
+    {
+        return $this->onlyMembers;
+    }
+
+    public function setOnlyMembers(bool $onlyMembers): self
+    {
+        $this->onlyMembers = $onlyMembers;
+
+        return $this;
+    }
+
+    public function getOnlyAssembly(): ?bool
+    {
+        return $this->onlyAssembly;
+    }
+
+    public function setOnlyAssembly(bool $onlyAssembly): self
+    {
+        $this->onlyAssembly = $onlyAssembly;
+
+        return $this;
     }
 }

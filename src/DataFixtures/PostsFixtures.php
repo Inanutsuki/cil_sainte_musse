@@ -32,6 +32,8 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
             $post->setTitle($faker->sentence($nbWords = $faker->numberBetween($min = 3, $max = 6), $variableNbWords = true));
             $post->setContent($paragraphs);
             $post->setAuthor($user);
+            $post->setOnlyMembers(false);
+            $post->setOnlyAssembly(false);
             $post->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
             $manager->persist($post);
         }

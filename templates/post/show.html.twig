@@ -34,19 +34,26 @@
 			</tr>
 		</tbody>
 	</table>
+	{% if app.user.id == post.author.id and app.user.isAdmin != true %}
+		<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
-	<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+		{{ include('post/_delete_form.html.twig') }}
 
-	{{ include('post/_delete_form.html.twig') }}
+		<a class="btn btn-primary" href="{{ path('my_posts', {'id': post.author.id}) }}">back to list</a>
+	{% endif %}
 
 	{% if app.user.isAdmin %}
+
+
+		<button class="btn btn-primary ml-3">
+			<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+		</button>
+			{{ include('post/_delete_form.html.twig') }}
 		<button class="btn btn-primary ml-3">
 			<a href="{{ path('admin_post_index') }}">Retourner à la liste</a>
 		</button>
 		<button class="btn btn-primary ml-3">
 			<a href="{{ path('user_show', {'id': post.author.id}) }}">Voir la page de l'auteur</a>
 		</button>
-	{% else %}
-		<a class="btn btn-primary"  href="{{ path('my_posts', {'id': post.author.id}) }}">back to list</a>
 	{% endif %}
 {% endblock %}

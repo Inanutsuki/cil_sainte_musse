@@ -27,8 +27,17 @@ class PostType extends AbstractType
             ]);
         if (in_array('ROLE_ADMIN', $options['roles'])) {
 
-            $builder->add('isValided', CheckboxType::class, [
+            $builder
+            ->add('isValided', CheckboxType::class, [
                 'label'    => "Valider l'article",
+                'required' => false,
+            ])
+            ->add('onlyMembers', CheckboxType::class, [
+                'label'    => "Visible seulement par les membres",
+                'required' => false,
+            ])
+            ->add('onlyAssembly', CheckboxType::class, [
+                'label'    => "Visible seulement par les membres de l'assemblé",
                 'required' => false,
             ]);
         };
@@ -38,7 +47,7 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
-            'roles' => null,
+            'roles' => [],
         ]);
     }
 }

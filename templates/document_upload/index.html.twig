@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DocumentUpload index{% endblock %}
+
+{% block body %}
+    <h1>DocumentUpload index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>AddAt</th>
+                <th>DocumentName</th>
+                <th>ModifiedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for document_upload in document_uploads %}
+            <tr>
+                <td>{{ document_upload.id }}</td>
+                <td>{{ document_upload.addAt ? document_upload.addAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ document_upload.documentName }}</td>
+                <td>{{ document_upload.modifiedAt ? document_upload.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('document_upload_show', {'id': document_upload.id}) }}">show</a>
+                    <a href="{{ path('admin_document_upload_edit', {'id': document_upload.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_document_upload_new') }}">Create new</a>
+{% endblock %}

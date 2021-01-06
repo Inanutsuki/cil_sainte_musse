@@ -1,5 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-	<a class="navbar-brand" href="{{ path('app_home') }}">CIL Sainte Musse</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+	<a class="navbar-brand" href="{{ path('app_home') }}">
+		<img class="logo-cil" src="/images/logo-cil-sainte-musse.jpg" alt="logo du cil sainte musse">
+	</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -12,12 +14,22 @@
 			<li class="nav-item {% if current_page is defined and current_page == 'news' %}active{% else %}''{% endif %}">
 				<a href="{{path('app_news')}}" class="nav-link">Acualités</a>
 			</li>
-			<li class="nav-item dropdown">
+			<li class="nav-item dropdown {% if current_page is defined and current_page == 'members_assembly' %}active{% else %}''{% endif %}">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					Administration
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item {% if current_page is defined and current_page == 'members_assembly' %}active{% else %}''{% endif %}" href="{{path('app_members_assembly')}}">Membres de l'assemblé générale</a>
+					<a class="dropdown-item" href="{{path('app_members_assembly')}}">Membres de l'assemblé générale</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown {% if current_page is defined and current_page == 'presentation' %}active{% else %}''{% endif %}">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					Présentation
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<a class="dropdown-item" href="{{path('app_cil_story')}}#histoire">Histoire du CIL</a>
+					<a class="dropdown-item" href="{{path('app_cil_story')}}#presentation">Présentation des quartiers</a>
+					<a class="dropdown-item" href="{{path('app_cil_story')}}#rejoindre">Rejoindre le CIL</a>
 				</div>
 			</li>
 			<li class="nav-item {% if current_page is defined and current_page == 'contact' %}active{% else %}''{% endif %}">
@@ -35,6 +47,16 @@
 				<li class="nav-item {% if current_page is defined and current_page == 'profil' %}active{% else %}''{% endif %}">
 					<a href="{{path('user_show', { 'id': 'me' })}}" class="nav-link">Votre profil</a>
 				</li>
+				{% if app.user %}
+					<li class="nav-item {% if current_page is defined and current_page == 'members' %}active{% else %}''{% endif %}">
+						<a href="{{path('app_members_news')}}" class="nav-link">Messages pour les membres</a>
+					</li>
+					{% if app.user.status[0] != "Membre" %}
+						<li class="nav-item {% if current_page is defined and current_page == 'assembly' %}active{% else %}''{% endif %}">
+							<a href="{{path('app_assembly_news')}}" class="nav-link">Messages pour l'assemblée</a>
+						</li>
+					{% endif %}
+				{% endif %}
 				{% if app.user.isAdmin %}
 					<li class="nav-item {% if current_page is defined and current_page == 'panneau_admin' %}active{% else %}''{% endif %}">
 						<a href="{{path('admin_dashboard')}}" class="nav-link">Panneau admin</a>

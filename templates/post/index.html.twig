@@ -5,10 +5,24 @@
 
 {% block body %}
 	<h1>Post index</h1>
-	
-		<a href="{{path('admin_post_index')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button></a>
-		<a href="{{path('admin_post_not_valided')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">En attente de validation</button></a>
-		<a href="{{path('admin_post_valided')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles validés</button></a>
+
+	<a href="{{path('admin_post_index')}}">
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button>
+	</a>
+	<a href="{{path('admin_post_not_valided')}}">
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">En attente de validation</button>
+	</a>
+	<a href="{{path('admin_post_valided')}}">
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles validés</button>
+	</a>
+	{% if app.user.isAdmin %}
+		<a href="{{path('admin_post_members')}}">
+			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour les membres</button>
+		</a>
+		<a href="{{path('admin_post_assembly')}}">
+			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour l'assemblée</button>
+		</a>
+	{% endif %}
 
 	<table class="table-sm table-striped">
 		<thead>
@@ -19,7 +33,10 @@
 				<th class="no-wrap" scope="col">Ajouté le</th>
 				<th class="no-wrap" scope="col">Modifié le</th>
 				<th class="no-wrap" scope="col">Validé</th>
-				<th class="no-wrap" scope="col">Actions</th>
+				{% if app.user.isAdmin %}
+					<th class="no-wrap" scope="col">Visible par</th>
+					<th class="no-wrap" scope="col">Actions</th>
+				{% endif %}
 			</tr>
 		</thead>
 		<tbody>
@@ -34,9 +51,18 @@
 						{% if post.isValided == false %}En attente{% else %}Validé
 						{% endif %}
 					</td>
+					{% if app.user.isAdmin %}
+						<td data-label="Visible par">
+							{% if post.onlyMembers == true and post.onlyAssembly == false %}membres
+								{% elseif post.onlyMembers == false and post.onlyAssembly == true %}assemblée
+								{% elseif post.onlyMembers == true and post.onlyAssembly == true %}assemblée/membre
+								{% else %}tout le monde
+							{% endif %}
+						</td>
+					{% endif %}
 					<td data-label="Actions">
-						<a href="{{ path('post_show', {'id': post.id}) }}">show</a>
-						<a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+						<a href="{{ path('post_show', {'id': post.id}) }}">montrer</a>
+						<a href="{{ path('post_edit', {'id': post.id}) }}">éditer</a>
 					</td>
 				</tr>
 			{% else %}
