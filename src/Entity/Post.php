@@ -75,11 +75,6 @@ class Post
      */
     private $onlyAssembly = false;
 
-    public function __construct()
-    {
-        $this->comments = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
