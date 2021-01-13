@@ -7,7 +7,7 @@
 {% block body %}
 
 	<h1 class="text-center">Les actualités</h1>
-	
+
 	<div class="row justify-content-center mb-3">
 		{{ knp_pagination_render(posts) }}
 	</div>
@@ -15,15 +15,19 @@
 		<div class="container-fluid d-flex flex-column align-items-center">
 			<div class="card mb-3 col-md-12">
 				<div class="card-body">
+					<div class="news-title">
+						<h3 class="card-title">{{post.title}}</h3>
+					</div>
 					<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
-					<h5 class="card-title">{{post.title}}</h5>
-					<p class="card-text">{{post.content}}</p>
+					<p class="card-text">{{post.content | raw}}</p>
 					<div class="row">
 						<div class="col">
 							<small class="text-muted">Ecrit par
 								{{ post.author }}
 								le
-								{{ post.createdAt|date('d m Y')}}</small>
+								{{ post.createdAt|date('d m Y')}}
+								dans
+								{{ post.category.title }}</small>
 						</div>
 						<div class="col d-flex justify-content-end">
 							{% if app.user.id is defined %}

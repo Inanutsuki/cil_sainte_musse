@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Espace reservé aux membres de l'assemblée</h1>
+	<h1>Espace reservé aux membres de l'assembléee</h1>
 	<div class="row justify-content-center mb-3">
 		{{ knp_pagination_render(posts) }}
 	</div>
@@ -22,7 +22,14 @@
 								<small class="text-muted">Ecrit par
 									{{ post.author }}
 									le
-									{{ post.createdAt|date('d m Y')}}</small>
+									{{ post.createdAt|date('d m Y')}}
+									{% if post.category.title != null %}
+										dans
+										{{ post.category.title }}
+										{% else %}
+									{% endif %}
+
+								</small>
 							</div>
 							<div class="col d-flex justify-content-end">
 								{% if app.user.id is defined %}
@@ -49,6 +56,5 @@
 		{% endif %}
 	{% endfor %}
 	<div class="row justify-content-center mb-3">
-		{{ knp_pagination_render(posts) }}
-	</div>
+		{{ knp_pagination_render(posts) }}</div>
 {% endblock %}

@@ -5,16 +5,32 @@
 {% endblock %}
 
 {% block body %}
-<h1>Bienvenue {{app.user.firstName}}</h1>
+	<h1>Bienvenue
+		{{app.user.firstName}}</h1>
 
-<div class="row">
-	<div class="col">
-		<a href="{{path('admin_user_index')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des utilisateurs">Liste des utilisateurs</button></a>
-		<a href="{{path('admin_post_index')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button></a>
-		<a href="{{path('admin_post_not_valided')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles en attente de validation</button></a>
-		<a href="{{path('admin_document_upload_new')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Ajouter/modifier le document d'adhésion</button></a>
-		<a href="{{path('post_new')}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Ajouter une information pour les membres du CIL</button></a>
+	<div class="row">
+		<div class="col admin-panel">
+			<p>Panneau de gestion des membres du CIL</p>
+			<a href="{{path('admin_user_index')}}">
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des utilisateurs">Liste des utilisateurs</button>
+			</a>
+			<p>Panneau de gestion des articles</p>
+			<a href="{{path('admin_post_index')}}">
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button>
+			</a>
+			<p>Liste des articles en attente de validation</p>
+			<a href="{{path('admin_post_not_valided')}}">
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles en attente de validation</button>
+			</a>
+			<p>Ajouter un message pour les membres du CIL</p>
+			<a href="{{path('post_new')}}">
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Ajouter une information pour les membres du CIL</button>
+			</a>
+			<p>Panneau de gestion pour ajouter le PDF du document d'adhésion</p>
+			<a href="{{path('admin_document_upload_new')}}">
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Ajouter/modifier le document d'adhésion</button>
+			</a>
+		</div>
 	</div>
-</div>
 
 {% endblock %}

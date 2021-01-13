@@ -1,0 +1,24 @@
+<div class="btn-group btn-user">
+	<button type="button" class="btn btn-profil dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Mon profile
+	</button>
+	<div class="dropdown-menu dropdown-menu-right">
+		{% if app.user == null %}
+			<a href="{{path('app_login')}}" class="dropdown-item">Connexion</a>
+			<a href="{{path('app_register')}}" class="dropdown-item">S'enregistrer</a>
+		{% endif %}
+		{% if app.user %}
+			<a href="{{path('user_show', { 'id': 'me' })}}" class="dropdown-item">Votre profile</a>
+
+			<a class="dropdown-item" href="{{path('app_members_news')}}">Messages pour les membres</a>
+			{% if app.user.status[0] != "Membre" %}
+				<a class="dropdown-item" href="{{path('app_assembly_news')}}">Messages pour l'assembléee</a>
+			{% endif %}
+			{% if app.user.isAdmin %}
+				<a href="{{path('admin_dashboard')}}" class="dropdown-item">Panneau admin</a>
+			{% endif %}
+			<a href="{{path('app_logout')}}" class="dropdown-item">Déconnexion</a>
+
+		{% endif %}
+	</div>
+</div>

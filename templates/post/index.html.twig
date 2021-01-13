@@ -20,7 +20,7 @@
 			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour les membres</button>
 		</a>
 		<a href="{{path('admin_post_assembly')}}">
-			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour l'assemblée</button>
+			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour l'assembléee</button>
 		</a>
 	{% endif %}
 
@@ -54,8 +54,8 @@
 					{% if app.user.isAdmin %}
 						<td data-label="Visible par">
 							{% if post.onlyMembers == true and post.onlyAssembly == false %}membres
-								{% elseif post.onlyMembers == false and post.onlyAssembly == true %}assemblée
-								{% elseif post.onlyMembers == true and post.onlyAssembly == true %}assemblée/membre
+								{% elseif post.onlyMembers == false and post.onlyAssembly == true %}assembléee
+								{% elseif post.onlyMembers == true and post.onlyAssembly == true %}assembléee/membre
 								{% else %}tout le monde
 							{% endif %}
 						</td>

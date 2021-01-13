@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\User;
+use FM\ElfinderBundle\Form\Type\ElFinderType;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -12,13 +14,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
+
 class PostType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('title')
-            ->add('content')
+            ->add('content', CKEditorType::class)
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'title' 
@@ -43,7 +46,7 @@ class PostType extends AbstractType
                 'required' => false,
             ])
             ->add('onlyAssembly', CheckboxType::class, [
-                'label'    => "Visible seulement par les membres de l'assemblé",
+                'label'    => "Visible seulement par les membres de l'assemblée",
                 'required' => false,
             ]);
         };

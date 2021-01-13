@@ -13,7 +13,7 @@
 		{% if post.onlyMembers == true %}
 			<div class="container-fluid d-flex flex-column align-items-center">
 				<div class="card mb-3 col-md-12">
-					<div class="card-body">	
+					<div class="card-body">
 						<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
 						<h5 class="card-title">{{post.title}}</h5>
 						<p class="card-text">{{post.content}}</p>
@@ -22,14 +22,20 @@
 								<small class="text-muted">Ecrit par
 									{{ post.author }}
 									le
-									{{ post.createdAt|date('d m Y')}}</small>
+									{{ post.createdAt|date('d m Y')}}
+									{% if post.category.title != null %}
+										dans
+										{{ post.category.title }}
+										{% else %}
+									{% endif %}
+								</small>
 							</div>
 							<div class="col d-flex justify-content-end">
 								{% if app.user.id is defined %}
 
-										<small class="text-muted mr-2">
-											<a href="{{ path('post_show', {'id': post.id}) }}">Ajouter/voir les commentaire</a>
-										</small>
+									<small class="text-muted mr-2">
+										<a href="{{ path('post_show', {'id': post.id}) }}">Ajouter/voir les commentaire</a>
+									</small>
 									{% if app.user.id == post.author.id %}
 										<small class="text-muted mr-2">
 											<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
@@ -52,6 +58,5 @@
 		{% endif %}
 	{% endfor %}
 	<div class="row justify-content-center mb-3">
-		{{ knp_pagination_render(posts) }}
-	</div>
+		{{ knp_pagination_render(posts) }}</div>
 {% endblock %}

@@ -31,7 +31,7 @@ class User implements UserInterface, \Serializable
     public const EDITABLE_ROLES = [
         'Utilisateur' => Self::ROLE_USER,
         'Editeur' => Self::ROLE_EDITOR,
-        'Assemblé générale' => Self::ROLE_ASSEMBLY,
+        'assemblée générale' => Self::ROLE_ASSEMBLY,
         'Admin' => Self::ROLE_ADMIN,
     ];
 

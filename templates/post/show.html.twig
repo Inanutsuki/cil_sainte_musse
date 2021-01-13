@@ -4,36 +4,59 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Post</h1>
+	<div class="container-fluid d-flex flex-column align-items-center">
+		<div class="card mb-3 col-md-12">
+			<div class="card-body">
+				<h3 class="card-title text-center">{{post.title}}</h3>
+				<img class="card-image-top img-fluid my-3" src="{{ vich_uploader_asset(post, 'imageFile') }}">
+				<p class="card-text">{{post.content | raw}}</p>
 
-	<table class="table">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ post.id }}</td>
-			</tr>
-			<tr>
-				<th>Auteur</th>
-				<td>{{ post.author }}</td>
-			</tr>
-			<tr>
-				<th>Title</th>
-				<td>{{ post.title }}</td>
-			</tr>
-			<tr>
-				<th>Content</th>
-				<td>{{ post.content }}</td>
-			</tr>
-			<tr>
-				<th>CreatedAt</th>
-				<td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-			<tr>
-				<th>ModifiedAt</th>
-				<td>{{ post.modifiedAt ? post.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
-			</tr>
-		</tbody>
-	</table>
+
+				<div class="row block-line-up">
+					<div class="col-12">
+						<small class="text-muted">Ecrit par
+							{{ post.author }}
+							le
+							{{ post.createdAt|date('d m Y')}}
+							dans
+							{{ post.category.title }}</small>
+					</div>
+					{% if app.user.id is defined %}
+						<div class="col-12">
+
+							{% if app.user.id == post.author.id %}
+								<small class="text-muted mr-2">
+									<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
+								</small>
+								<small class="text-muted">
+									<a href="{{ path('my_posts', {'id': app.user.id}) }}">Voir mes artciles</a>
+								</small>
+							{% elseif app.user.isAdmin %}
+								<small class="text-muted">
+									<a href="{{ path('my_posts', {'id': post.author.id}) }}">Voir articles de l'auteur</a>
+								</small>
+							{% endif %}
+
+						</div>
+					{% endif %}
+					{% if app.user.isAdmin %}
+						<div class="col-12">
+							<small class="text-muted">ID de l'article :
+								{{ post.id }}</small>
+						</div>
+						<div class="col-12">
+							<small class="text-muted">Créé le :
+								{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</small>
+						</div>
+						<div class="col-12">
+							<small class="text-muted">Modifié le :
+								{{ post.modifiedAt ? post.modifiedAt|date('Y-m-d H:i:s') : '' }}</small>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<section class="comments">
@@ -71,21 +94,25 @@
 
 
 	{% if app.user.id == post.author.id and app.user.isAdmin != true %}
-		<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+		<div class="row my-2">
+			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
-		{{ include('post/_delete_form.html.twig') }}
+			{{ include('post/_delete_form.html.twig') }}
 
-		<a class="btn btn-primary" href="{{ path('my_posts', {'id': post.author.id}) }}">back to list</a>
+			<a class="btn btn-primary" href="{{ path('my_posts', {'id': post.author.id}) }}">back to list</a>
+		</div>
 	{% endif %}
 
 	{% if app.user.isAdmin %}
-		<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+		<div class="row my-2">
+			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
 
-		{{ include('post/_delete_form.html.twig') }}
+			{{ include('post/_delete_form.html.twig') }}
 
-		<a class="btn btn-primary" href="{{ path('admin_post_index') }}">Retourner à la liste</a>
+			<a class="btn btn-primary" href="{{ path('admin_post_index') }}">Retourner à la liste</a>
 
-		<a class="btn btn-primary" href="{{ path('user_show', {'id': post.author.id}) }}">Voir la page de l'auteur</a>
+			<a class="btn btn-primary" href="{{ path('user_show', {'id': post.author.id}) }}">Voir la page de l'auteur</a>
+		</div>
 	{% endif %}
 
 {% endblock %}

@@ -35,13 +35,21 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $post->setCreatedAt(new \DateTime('now'));
-            $post->setAuthor($user);
-            $post->setIsValided(false);
+            if ($post->getIsValided() === true && $thisUserGetRole == ['ROLE_ADMIN']) {
+                $post->setCreatedAt(new \DateTime('now'));
+                $post->setAuthor($user);
+                $post->setIsValided(true);
 
-            $manager->persist($post);
-            $manager->flush();
+                $manager->persist($post);
+                $manager->flush();
+            } else {
+                $post->setCreatedAt(new \DateTime('now'));
+                $post->setAuthor($user);
+                $post->setIsValided(false);
+
+                $manager->persist($post);
+                $manager->flush();
+            }
 
             return $this->redirectToRoute('my_posts', [
                 'id' => $this->getUser()->getId(),
@@ -81,7 +89,7 @@ class PostController extends AbstractController
         $formComment->handleRequest($request);
 
         if ($formComment->isSubmitted() && $formComment->isValid()) {
-            $author = $this->getUser()->getLastName().' '.$this->getUser()->getFirstName();
+            $author = $this->getUser()->getLastName() . ' ' . $this->getUser()->getFirstName();
 
             $comment->setCreatedAt(new \DateTime('now'));
             $comment->setPost($post);
@@ -99,7 +107,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    
+
 
     /**
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})

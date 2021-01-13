@@ -48,7 +48,7 @@ class MemberController extends AbstractController
 
         return $this->render('assembly_space/index.html.twig', [
             'posts' => $posts,
-            'title' => "Articles pour les membres de l'assemblée",
+            'title' => "Articles pour les membres de l'assembléee",
             'current_page' => 'assembly',
         ]);
     }

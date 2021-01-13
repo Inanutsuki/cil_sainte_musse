@@ -6,7 +6,7 @@
 
 {% block body %}
 	<div class="container-fluid">
-		<h1 class="text-center">Les membres de l'assemblé générale</h1>
+		<h1 class="text-center">Les membres de l'assemblée générale</h1>
 		<div class="row d.flex justify-content-center align-items-end">
 			{% for user in listMembersAssembly %}
 				<div class="col-mb-4 mx-3 mb-4 {% if user.status[0] == 'Président' %}order-1{% elseif user.status[0] == "Secrétaire" %}order-2{% elseif user.status[0] == "Trésorier" %}order-3{% else %}order-4{% endif %}">

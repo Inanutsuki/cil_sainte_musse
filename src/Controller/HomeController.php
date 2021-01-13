@@ -63,7 +63,7 @@ class HomeController extends AbstractController
 
         return $this->render('assembly_space/index.html.twig', [
             'posts' => $posts,
-            'title' => "Articles pour les membres de l'assemblée",
+            'title' => "Articles pour les membres de l'assembléee",
             'current_page' => 'assembly',
         ]);
     }
@@ -100,21 +100,46 @@ class HomeController extends AbstractController
             }
         }
         return $this->render('home/assembly_members.html.twig', [
-            'title' => "Membres de l'assemblé générale",
+            'title' => "Membres de l'assemblée générale",
             'current_page' => 'members_assembly',
             'listMembersAssembly' => $listMembersAssembly,
         ]);
     }
 
     /**
-     * @Route("/cil-story", name="app_cil_story", methods={"GET"})
+     * @Route("/histoire-cil", name="app_cil_story", methods={"GET"})
      */
-    public function Presentation(): Response
+    public function cilStory(): Response
+    {
+
+        return $this->render('presentation/cil-story.html.twig', [
+            'title' => "Histoire du CIL",
+            'current_page' => 'presentation',
+        ]);
+    }
+
+    /**
+     * @Route("/les-quartiers", name="app_neighborhoods", methods={"GET"})
+     */
+    public function neighborhoods(): Response
+    {
+
+        return $this->render('presentation/neighborhoods.html.twig', [
+            'title' => "Sainte Musse - La Ginouse",
+            'current_page' => 'presentation',
+        ]);
+    }
+
+    /**
+     * @Route("/rejoindre-le-cil", name="app_membership", methods={"GET"})
+     */
+    public function membership(): Response
     {
         $documentUpload = new DocumentUpload();
-        
-        return $this->render('presentation/base-presentation.html.twig', [
+
+        return $this->render('presentation/membership.html.twig', [
             'document_upload' => $documentUpload,
+            'title' => "Rejoindre le CIL",
             'current_page' => 'presentation',
         ]);
     }

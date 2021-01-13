@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Category;
 use App\Entity\Post;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -23,6 +24,26 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Faker\Factory::create('fr_FR');
+        $categories = [];
+
+        $cat = new Category;
+        $cat->setTitle("Développement économique et social");
+        $categories[] = $cat;
+        $manager->persist($cat);
+        $manager->flush();
+
+        $cat = new Category;
+        $cat->setTitle("Culturel et sportif");
+        $categories[] = $cat;
+        $manager->persist($cat);
+        $manager->flush();
+        
+        $cat = new Category;
+        $cat->setTitle("Transport");
+        $categories[] = $cat;
+        $manager->persist($cat);
+        $manager->flush();
+        
 
         for ($nbArticle = 1; $nbArticle <= 50; $nbArticle++) {
             $post = new Post;
@@ -31,6 +52,7 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
             $post->setIsValided($faker->boolean($chanceOfGettingTrue = 50));
             $post->setTitle($faker->sentence($nbWords = $faker->numberBetween($min = 3, $max = 6), $variableNbWords = true));
             $post->setContent($paragraphs);
+            $post->setCategory($categories[$faker->numberBetween($min = 0, $max = 2)]);
             $post->setAuthor($user);
             $post->setOnlyMembers(false);
             $post->setOnlyAssembly(false);
