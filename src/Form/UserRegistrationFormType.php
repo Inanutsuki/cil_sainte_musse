@@ -43,7 +43,7 @@ class UserRegistrationFormType extends AbstractType
                 ]
             ])
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Ajouter une photo de profile (fichier JPG ou PNG)',
+                'label' => 'Ajouter une photo de profil (fichier JPG ou PNG)',
                 'required' => false,
                 'allow_delete' => true,
                 'delete_label' => 'Supprimer l\'image ?',

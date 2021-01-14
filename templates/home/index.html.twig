@@ -9,4 +9,54 @@
 		<h2 class="text-center">Bienvenue sur le site du CIL sainte Musse</h2>
 	</div>
 
+	<h1 class="text-center">Les actualités</h1>
+
+	<div class="row justify-content-center mb-3">
+		{{ knp_pagination_render(posts) }}
+	</div>
+	{% for post in posts %}
+		<div class="container-fluid d-flex flex-column align-items-center">
+			<div class="card mb-3 col-md-12">
+				<div class="card-body">
+					<div class="news-title">
+						<h3 class="card-title">{{post.title}}</h3>
+					</div>
+					<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
+					<p class="card-text">{{post.content | raw}}</p>
+					<div class="row block-line-up">
+						<div class="col">
+							<small class="text-muted">Ecrit par
+								{{ post.author }}
+								le
+								{{ post.createdAt|date('d m Y')}}
+								dans
+								{{ post.category.title }}</small>
+						</div>
+						<div class="col d-flex justify-content-end">
+							{% if app.user.id is defined %}
+
+								{% if app.user.id == post.author.id %}
+									<small class="text-muted mr-2">
+										<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
+									</small>
+									<small class="text-muted">
+										<a href="{{ path('my_posts', {'id': app.user.id}) }}">Voir mes artciles</a>
+									</small>
+								{% elseif app.user.isAdmin %}
+									<small class="text-muted">
+										<a href="{{ path('my_posts', {'id': post.author.id}) }}">Voir articles de l'auteur</a>
+									</small>
+								{% endif %}
+
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	<div class="row justify-content-center mb-3">
+		{{ knp_pagination_render(posts) }}
+	</div>
+
 {% endblock %}

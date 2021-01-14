@@ -1,6 +1,6 @@
 <div class="btn-group btn-user">
 	<button type="button" class="btn btn-profil dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		Mon profile
+		Mon profil
 	</button>
 	<div class="dropdown-menu dropdown-menu-right">
 		{% if app.user == null %}
@@ -8,7 +8,7 @@
 			<a href="{{path('app_register')}}" class="dropdown-item">S'enregistrer</a>
 		{% endif %}
 		{% if app.user %}
-			<a href="{{path('user_show', { 'id': 'me' })}}" class="dropdown-item">Votre profile</a>
+			<a href="{{path('user_show', { 'id': 'me' })}}" class="dropdown-item">Votre profil</a>
 
 			<a class="dropdown-item" href="{{path('app_members_news')}}">Messages pour les membres</a>
 			{% if app.user.status[0] != "Membre" %}

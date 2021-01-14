@@ -44,6 +44,12 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
         $manager->persist($cat);
         $manager->flush();
         
+        $cat = new Category;
+        $cat->setTitle("Acceuil");
+        $categories[] = $cat;
+        $manager->persist($cat);
+        $manager->flush();
+        
 
         for ($nbArticle = 1; $nbArticle <= 50; $nbArticle++) {
             $post = new Post;

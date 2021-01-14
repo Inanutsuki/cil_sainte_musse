@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\DocumentUpload;
 use App\Entity\User;
+use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
 use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,14 +16,36 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    // /**
+    //  * @Route("/", name="app_home", methods={"GET"})
+    //  */
+    // public function index(): Response
+    // {
+    //     return $this->render('home/index.html.twig', [
+    //         'title' => "CIL Sainte Musse",
+    //         'current_page' => 'accueil'
+    //     ]);
+    // }
+
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
-    public function index(): Response
+    public function accueil(PostRepository $postRepository, CategoryRepository $categoryRepository , Request $request, PaginatorInterface $paginator): Response
     {
-        return $this->render('home/index.html.twig', [
+        $indexCategory = $categoryRepository->findBy(array('title' => "Accueil")); // Récupère la catégorie Accueil
+        $idCategory = $indexCategory[0]->getId(); // Récupère l'ID de la catégorie Accueil
+
+        $data = $postRepository->findBy(array('isValided' => true, 'category' => $idCategory), array('createdAt' => 'DESC'));
+        $posts = $paginator->paginate(
+            $data, // On passe les données.
+            $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
+            5 // Nombre d'éléments par page.
+        );
+
+        return $this->render('home/news.html.twig', [
+            'posts' => $posts,
             'title' => "CIL Sainte Musse",
-            'current_page' => 'accueil'
+            'current_page' => 'accueil',
         ]);
     }
 
