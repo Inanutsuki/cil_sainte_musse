@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DocumentUpload{% endblock %}
+{% block title %}Les documents{% endblock %}
 
 {% block body %}
-    <h1>DocumentUpload</h1>
+    <h1>Les documents</h1>
 
     <table class="table">
         <tbody>
@@ -12,23 +12,23 @@
                 <td>{{ document_upload.id }}</td>
             </tr>
             <tr>
-                <th>AddAt</th>
+                <th>Ajouté le</th>
                 <td>{{ document_upload.addAt ? document_upload.addAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>DocumentName</th>
+                <th>Nom du document</th>
                 <td>{{ document_upload.documentName }}</td>
             </tr>
             <tr>
-                <th>ModifiedAt</th>
+                <th>Modifié le</th>
                 <td>{{ document_upload.modifiedAt ? document_upload.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('document_upload_index') }}">back to list</a>
+    <a href="{{ path('document_upload_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('admin_document_upload_edit', {'id': document_upload.id}) }}">edit</a>
+    <a href="{{ path('admin_document_upload_edit', {'id': document_upload.id}) }}">Editer</a>
 
     {{ include('document_upload/_delete_form.html.twig') }}
 {% endblock %}

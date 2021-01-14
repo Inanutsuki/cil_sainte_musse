@@ -23,7 +23,7 @@ class UserController extends AbstractController
      */
     public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder): Response
     {
-        if( !($this->getUser() === Null) ){
+        if (!($this->getUser() === Null)) {
             return $this->redirectToRoute('app_home');
         }
         $form_register = $this->createForm(UserRegistrationFormType::class);
@@ -57,12 +57,16 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, EntityManagerInterface $manager): Response
     {
+        $mail = $user->getEmail();
+
         $form = $this->createForm(UserType::class, $user, ['roles' => $this->getUser()->getRoles()]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $manager->persist($user);
             $manager->flush();
+            if ($mail != $user->getEmail()) {
+                $this->getDoctrine()->getManager()->refresh($user);
+            }
 
             return $this->redirectToRoute('user_show', [
                 'id' => $user->getId(),

@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DocumentUpload index{% endblock %}
+{% block title %}Liste des documents{% endblock %}
 
 {% block body %}
-    <h1>DocumentUpload index</h1>
+    <h1>Liste des documents</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>AddAt</th>
-                <th>DocumentName</th>
-                <th>ModifiedAt</th>
-                <th>actions</th>
+                <th>Ajouté le</th>
+                <th>Nom du document</th>
+                <th>Modifié le</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,17 +23,17 @@
                 <td>{{ document_upload.documentName }}</td>
                 <td>{{ document_upload.modifiedAt ? document_upload.modifiedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('document_upload_show', {'id': document_upload.id}) }}">show</a>
-                    <a href="{{ path('admin_document_upload_edit', {'id': document_upload.id}) }}">edit</a>
+                    <a href="{{ path('document_upload_show', {'id': document_upload.id}) }}">Montrer</a>
+                    <a href="{{ path('admin_document_upload_edit', {'id': document_upload.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Pas de résultat trouvé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('admin_document_upload_new') }}">Create new</a>
+    <a href="{{ path('admin_document_upload_new') }}">Créer un nouveau document</a>
 {% endblock %}

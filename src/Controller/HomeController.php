@@ -9,12 +9,9 @@ use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
-use Symfony\Component\Serializer\SerializerInterface;
 
 class HomeController extends AbstractController
 {
@@ -45,7 +42,6 @@ class HomeController extends AbstractController
         return $this->render('member_space/index.html.twig', [
             'posts' => $posts,
             'title' => "Articles pour les membres",
-            'current_page' => 'members',
         ]);
     }
 
@@ -90,7 +86,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/members-assembly", name="app_members_assembly", methods={"GET"})
      */
-    public function listMembersAssembly(UserRepository $userRepository, SerializerInterface $serialize): Response
+    public function listMembersAssembly(UserRepository $userRepository): Response
     {
         $userList = $userRepository->findAll();
         foreach ($userList as $user) {

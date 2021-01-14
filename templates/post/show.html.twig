@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post
+{% block title %}Article
 {% endblock %}
 
 {% block body %}
 	<div class="container-fluid d-flex flex-column align-items-center">
 		<div class="card mb-3 col-md-12">
 			<div class="card-body">
-				<h3 class="card-title text-center">{{post.title}}</h3>
+				<div class="news-title">
+					<h3 class="card-title text-center">{{post.title}}</h3>
+				</div>
 				<img class="card-image-top img-fluid my-3" src="{{ vich_uploader_asset(post, 'imageFile') }}">
 				<p class="card-text">{{post.content | raw}}</p>
 
@@ -95,17 +97,17 @@
 
 	{% if app.user.id == post.author.id and app.user.isAdmin != true %}
 		<div class="row my-2">
-			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">Editer</a>
 
 			{{ include('post/_delete_form.html.twig') }}
 
-			<a class="btn btn-primary" href="{{ path('my_posts', {'id': post.author.id}) }}">back to list</a>
+			<a class="btn btn-primary" href="{{ path('my_posts', {'id': post.author.id}) }}">Retourner à la liste</a>
 		</div>
 	{% endif %}
 
 	{% if app.user.isAdmin %}
 		<div class="row my-2">
-			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">edit</a>
+			<a class="btn btn-primary" href="{{ path('post_edit', {'id': post.id}) }}">Editer</a>
 
 			{{ include('post/_delete_form.html.twig') }}
 

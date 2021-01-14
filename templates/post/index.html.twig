@@ -1,26 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post index
+{% block title %}
+	{{ title }}
 {% endblock %}
 
 {% block body %}
-	<h1>Post index</h1>
+	<h1>{{ title }}</h1>
 
 	<a href="{{path('admin_post_index')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Liste des Articles</button>
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des Articles">Liste des Articles</button>
 	</a>
 	<a href="{{path('admin_post_not_valided')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">En attente de validation</button>
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les article en attente de validation">En attente de validation</button>
 	</a>
 	<a href="{{path('admin_post_valided')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles validés</button>
+		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles validés">Articles validés</button>
 	</a>
 	{% if app.user.isAdmin %}
 		<a href="{{path('admin_post_members')}}">
-			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour les membres</button>
+			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles pour les membres">Articles pour les membres</button>
 		</a>
 		<a href="{{path('admin_post_assembly')}}">
-			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des articles">Articles pour l'assembléee</button>
+			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles pour l'assembléee">Articles pour l'assembléee</button>
 		</a>
 	{% endif %}
 
@@ -42,11 +43,11 @@
 		<tbody>
 			{% for post in posts %}
 				<tr>
-					<td data-label="id">{{ post.id }}</td>
+					<td data-label="Id">{{ post.id }}</td>
 					<td data-label="Titre">{{ post.title }}</td>
 					<td data-label="Auteur">{{ post.author }}</td>
-					<td data-label="Ajouté le" class="no-wrap">{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
-					<td data-label="Modifié le" class="no-wrap">{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '<small class="text-muted">Pas modifié</small>' }}</td>
+					<td data-label="Ajouté le">{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
+					<td data-label="Modifié le">{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '<small class="text-muted">Pas modifié</small>' }}</td>
 					<td data-label="Validé">
 						{% if post.isValided == false %}En attente{% else %}Validé
 						{% endif %}

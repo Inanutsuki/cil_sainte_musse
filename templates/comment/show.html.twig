@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Comment{% endblock %}
+{% block title %}Commentaire{% endblock %}
 
 {% block body %}
-    <h1>Comment</h1>
+    <h1>Commentaire</h1>
 
     <table class="table">
         <tbody>
@@ -12,23 +12,23 @@
                 <td>{{ comment.id }}</td>
             </tr>
             <tr>
-                <th>Author</th>
+                <th>Auteur</th>
                 <td>{{ comment.author }}</td>
             </tr>
             <tr>
-                <th>Content</th>
+                <th>Contenue</th>
                 <td>{{ comment.content }}</td>
             </tr>
             <tr>
-                <th>CeatedAt</th>
+                <th>Créer le</th>
                 <td>{{ comment.ceatedAt ? comment.ceatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('comment_index') }}">back to list</a>
+    <a href="{{ path('comment_index') }}">Retour à la liste</a>
 
-    <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+    <a href="{{ path('comment_edit', {'id': comment.id}) }}">Editer</a>
 
     {{ include('comment/_delete_form.html.twig') }}
 {% endblock %}

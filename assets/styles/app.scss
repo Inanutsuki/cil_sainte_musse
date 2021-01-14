@@ -23,6 +23,13 @@ html {
         padding: 15px;
     }
 
+    h1 {
+        border: 1px solid #a52b121a;
+        border-radius: 0.25rem;
+        margin: 15px 15px;
+        box-shadow: 0 0.5rem 1rem rgba($primary, 0.15) !important;
+    }
+
     h3 {
         font-size: 1.2rem;
     }
@@ -129,6 +136,14 @@ nav {
         }
     }
 
+    & .pagination {
+        border: 1px solid #a52b121a;
+        border-radius: 0.25rem;
+        margin-top: 15px;
+        margin-bottom: 0;
+        box-shadow: 0 0.5rem 1rem rgba($primary, 0.15) !important;
+    }
+
     a {
         .logo-cil {
             height: 40px;
@@ -160,10 +175,7 @@ nav {
             & .card-title {
                 font-size: 2.5rem;
                 font-weight: bold;
-                padding-bottom: 10px;
-                margin-bottom: 30px;
-                border-bottom: 1px solid $primary;
-
+                text-decoration: underline;
             }
         }
     }
@@ -176,7 +188,7 @@ nav {
     margin-bottom: 15px;
     padding: 15px;
     border: 1px solid;
-    border-radius: 5px;
+    border-radius: 0.25rem;
 }
 
 .btn-primary {
@@ -191,6 +203,15 @@ nav {
 button {
     &.btn {
 
+        &-admin {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: auto;
+            min-height: 100px;
+        }
+
         &.btn-profil {
             background-color: $primary !important;
             color: rgba(255, 255, 255, 0.75);
@@ -203,6 +224,10 @@ button {
                 box-shadow: unset;
             }
         }
+    }
+
+    & .svg-icon{
+        fill: white;
     }
 
     a {
@@ -268,7 +293,7 @@ footer {
         font-size: 1rem !important;
 
         h3 {
-            font-size: 1.1  rem;
+            font-size: 1.1 rem;
         }
 
         .card {
@@ -285,28 +310,42 @@ footer {
         }
     }
 
-    .table-striped thead {
-        display: none;
-    }
+    .table-striped {
+        width: inherit;
 
-    .table-striped tr {
-        display: block;
-        margin-bottom: 40px;
-    }
-
-    .table-striped td {
-        display: block;
-        text-align: right;
-        border-bottom: solid 1px #999;
-
-        &:last-child {
-            border: none;
+        & thead {
+            display: none;
         }
+
+        & tr {
+            display: block;
+            margin-bottom: 40px;
+        }
+
+        & td {
+            display: block;
+            text-align: right;
+            border-bottom: solid 1px #999;
+
+            &:before {
+                content: attr(data-label);
+                float: left;
+                font-weight: bold;
+            }
+
+            &:last-child {
+                border: none;
+            }
+        }
+
     }
 
-    .table-striped td:before {
-        content: attr(data-label);
-        float: left;
-        font-weight: bold;
+    body {
+        padding-top: 20px;
+    }
+
+    .panel-body .btn:not(.btn-block) {
+        width: 120px;
+        margin-bottom: 10px;
     }
 }

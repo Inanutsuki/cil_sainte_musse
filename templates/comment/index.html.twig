@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Comment index{% endblock %}
+{% block title %}Liste des commantaires{% endblock %}
 
 {% block body %}
-    <h1>Comment index</h1>
+    <h1>Liste des commantaires</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Author</th>
-                <th>Content</th>
-                <th>CeatedAt</th>
-                <th>actions</th>
+                <th>Auteur</th>
+                <th>Contenue</th>
+                <th>Créé le</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -23,17 +23,17 @@
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.ceatedAt ? comment.ceatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('comment_show', {'id': comment.id}) }}">show</a>
-                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">edit</a>
+                    <a href="{{ path('comment_show', {'id': comment.id}) }}">Montrer</a>
+                    <a href="{{ path('comment_edit', {'id': comment.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="5">Pas de résultat</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('comment_new') }}">Create new</a>
+    <a href="{{ path('comment_new') }}">Créer un nouveau commentaire</a>
 {% endblock %}
