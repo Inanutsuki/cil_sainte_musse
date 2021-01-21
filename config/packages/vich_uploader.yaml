@@ -18,12 +18,3 @@ vich_uploader:
 
             delete_on_remove: true # suppression du fichier à la suppression de l’entité
             delete_on_update: true # suppression du fichier quand un nouveau fichier est envoyé
-        
-        uploads_document:
-            uri_prefix: /uploads/uploads_document
-            upload_destination: '%kernel.project_dir%/public/uploads/uploads_document'
-            # namer : App \ Naming \ membership
-
-            # A activer si l'on veux supprimer l'image.
-            delete_on_update: true
-            delete_on_remove: true

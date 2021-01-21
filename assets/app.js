@@ -22,7 +22,9 @@ $('.custom-file-input').on('change', function (e) {
 $(window).scroll(function () {
     if ($(window).scrollTop() >= 300) {
         $('.navbar').addClass('fixed-header');
+        $('.arrow-page-up').addClass('visible');
     } else {
         $('.navbar').removeClass('fixed-header');
+        $('.arrow-page-up').removeClass('visible');
     }
 });

@@ -45,7 +45,7 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
         $manager->flush();
         
         $cat = new Category;
-        $cat->setTitle("Acceuil");
+        $cat->setTitle("Divers");
         $categories[] = $cat;
         $manager->persist($cat);
         $manager->flush();
@@ -60,8 +60,9 @@ class PostsFixtures extends Fixture implements DependentFixtureInterface
             $post->setContent($paragraphs);
             $post->setCategory($categories[$faker->numberBetween($min = 0, $max = 2)]);
             $post->setAuthor($user);
-            $post->setOnlyMembers(false);
-            $post->setOnlyAssembly(false);
+            $post->setForMembers(false);
+            $post->setForAssembly(false);
+            $post->setForIndex(false);
             $post->setCreatedAt($faker->dateTime($max = 'now', $timezone = null));
             $manager->persist($post);
         }

@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\DocumentUpload;
 use App\Entity\User;
 use App\Repository\CategoryRepository;
 use App\Repository\PostRepository;
@@ -16,35 +15,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    // /**
-    //  * @Route("/", name="app_home", methods={"GET"})
-    //  */
-    // public function index(): Response
-    // {
-    //     return $this->render('home/index.html.twig', [
-    //         'title' => "CIL Sainte Musse",
-    //         'current_page' => 'accueil'
-    //     ]);
-    // }
-
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
-    public function accueil(PostRepository $postRepository, CategoryRepository $categoryRepository , Request $request, PaginatorInterface $paginator): Response
+    public function accueil(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $indexCategory = $categoryRepository->findBy(array('title' => "Accueil")); // Récupère la catégorie Accueil
-        $idCategory = $indexCategory[0]->getId(); // Récupère l'ID de la catégorie Accueil
-
-        $data = $postRepository->findBy(array('isValided' => true, 'category' => $idCategory), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('isValided' => true, 'forIndex' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
             5 // Nombre d'éléments par page.
         );
 
-        return $this->render('home/news.html.twig', [
+        return $this->render('home/index.html.twig', [
             'posts' => $posts,
-            'title' => "CIL Sainte Musse",
+            'title' => "CIL Sainte Musse - La Ginouse",
             'current_page' => 'accueil',
         ]);
     }
@@ -55,7 +40,7 @@ class HomeController extends AbstractController
      */
     public function membersActualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findBy(array('onlyMembers' => true), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('forMembers' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
@@ -73,7 +58,7 @@ class HomeController extends AbstractController
      */
     public function assemblyActualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findBy(array('onlyAssembly' => true), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('forAssembly' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
@@ -154,10 +139,8 @@ class HomeController extends AbstractController
      */
     public function membership(): Response
     {
-        $documentUpload = new DocumentUpload();
 
         return $this->render('presentation/membership.html.twig', [
-            'document_upload' => $documentUpload,
             'title' => "Rejoindre le CIL",
             'current_page' => 'presentation',
         ]);

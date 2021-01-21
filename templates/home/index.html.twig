@@ -5,12 +5,6 @@
 {% endblock %}
 
 {% block body %}
-	<div class="jumbotron jumbotron-fluid">
-		<h2 class="text-center">Bienvenue sur le site du CIL sainte Musse</h2>
-	</div>
-
-	<h1 class="text-center">Les actualités</h1>
-
 	<div class="row justify-content-center mb-3">
 		{{ knp_pagination_render(posts) }}
 	</div>
@@ -37,7 +31,7 @@
 
 								{% if app.user.id == post.author.id %}
 									<small class="text-muted mr-2">
-										<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
+										<a href="{{ path('post_edit', {'id': post.id}) }}">Modifier</a>
 									</small>
 									<small class="text-muted">
 										<a href="{{ path('my_posts', {'id': app.user.id}) }}">Voir mes artciles</a>

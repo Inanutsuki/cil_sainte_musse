@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 
 		<title>
-			{% block title %}CIL Sainte Musse
+			{% block title %}CIL SAINTE MUSSE - LA GINOUSE
 			{% endblock %}
 		</title>
 
@@ -17,24 +17,25 @@
 	</head>
 	<body>
 		<header>
-			<div class="header-banner">
+			<div id="up-page" class="header-banner">
 				<div class="row justify-content-end header-bar">
 					{% include "layouts/includes/header_bar.html.twig" %}
 				</div>
-				<h1 class="main-title">CIL Sainte Musse</h1>
+				<h1 class="main-title">CIL SAINTE MUSSE - LA GINOUSE</h1>
 			</div>
 			<div class="clear"></div>
 			{% include "layouts/includes/navbar.html.twig" %}
 		</header>
 		<div class="container content"> {% block body %}{% endblock %}
-			</div>
+			<div class="btn-up-page"><a href="#up-page">{% include "svg_icons/arrow_up_icon.html.twig" %}</a></div>
+		</div>
 
-			<footer>{% include "layouts/includes/footer.html.twig" %}</footer>
-			{% block javascripts %}
-				{{ encore_entry_script_tags('app') }}
-			{% endblock %}
-			<script>
-				var CKEDITOR_BASEPATH = '/ckeditor/';
-			</script>
-		</body>
-	</html>
+		<footer>{% include "layouts/includes/footer.html.twig" %}</footer>
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+		<script>
+			var CKEDITOR_BASEPATH = '/ckeditor/';
+		</script>
+	</body>
+</html>

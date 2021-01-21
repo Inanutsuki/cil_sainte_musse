@@ -1,13 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer l'article{% endblock %}
+{% block title %}Editer l'article
+{% endblock %}
 
 {% block body %}
-    <h1>Editer l'article</h1>
+	<h1>Editer l'article</h1>
+	<div class="container-fluid border-shadow mx-3 py-3">
+		{{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
 
-    {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
+		<div class="row row-nav my-3">
+			<div class="col">
+				<button class="btn btn-primary">
+					<a href="{{ path('my_posts', {'id': post.author.id}) }}">Retourner à la liste</a>
+				</button>
+			</div>
+			<div class="col">
+				{{ include('post/_delete_form.html.twig') }}</div>
+		</div>
 
-    <a class="btn btn-primary"  href="{{ path('my_posts', {'id': post.author.id}) }}">Retourner à la liste</a>
 
-    {{ include('post/_delete_form.html.twig') }}
+	</div>
 {% endblock %}

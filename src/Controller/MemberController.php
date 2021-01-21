@@ -20,7 +20,7 @@ class MemberController extends AbstractController
      */
     public function membersActualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findBy(array('onlyMembers' => true), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('forMembers' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
@@ -39,7 +39,7 @@ class MemberController extends AbstractController
      */
     public function assemblyActualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findBy(array('onlyAssembly' => true), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('forAssembly' => true), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.

@@ -71,12 +71,17 @@ class Post
     /**
      * @ORM\Column(type="boolean")
      */
-    private $onlyMembers = false;
+    private $forMembers = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $onlyAssembly = false;
+    private $forAssembly = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $forIndex;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="posts")
@@ -207,26 +212,38 @@ class Post
         return $this->imageFile;
     }
 
-    public function getOnlyMembers(): ?bool
+    public function getForMembers(): ?bool
     {
-        return $this->onlyMembers;
+        return $this->forMembers;
     }
 
-    public function setOnlyMembers(bool $onlyMembers): self
+    public function setForMembers(bool $forMembers): self
     {
-        $this->onlyMembers = $onlyMembers;
+        $this->forMembers = $forMembers;
 
         return $this;
     }
 
-    public function getOnlyAssembly(): ?bool
+    public function getForAssembly(): ?bool
     {
-        return $this->onlyAssembly;
+        return $this->forAssembly;
     }
 
-    public function setOnlyAssembly(bool $onlyAssembly): self
+    public function setForAssembly(bool $forAssembly): self
     {
-        $this->onlyAssembly = $onlyAssembly;
+        $this->forAssembly = $forAssembly;
+
+        return $this;
+    }
+
+    public function getForIndex(): ?bool
+    {
+        return $this->forIndex;
+    }
+
+    public function setForIndex(bool $forIndex): self
+    {
+        $this->forIndex = $forIndex;
 
         return $this;
     }

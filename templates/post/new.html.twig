@@ -1,11 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer nouvel article{% endblock %}
+{% block title %}Créer nouvel article
+{% endblock %}
 
 {% block body %}
-    <h1>Créer nouvel article</h1>
+	<h1>Créer nouvel article</h1>
 
-    {{ include('post/_form.html.twig') }}
 
-    <a class="btn btn-primary"  href="{{ path('my_posts', {'id': app.user.id}) }}">Retourner à la liste</a>
+	<div class="container-fluid border-shadow mx-3 py-3">
+		{{ include('post/_form.html.twig') }}
+
+		<a class="btn btn-primary" href="{{ path('my_posts', {'id': app.user.id}) }}">Retourner à la liste</a>
+	</div>
+
 {% endblock %}

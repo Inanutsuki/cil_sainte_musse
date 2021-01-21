@@ -10,7 +10,7 @@
 		{{ knp_pagination_render(posts) }}
 	</div>
 	{% for post in posts %}
-		{% if post.onlyMembers == true %}
+		{% if post.forMembers == true %}
 			<div class="container-fluid d-flex flex-column align-items-center">
 				<div class="card mb-3 col-md-12">
 					<div class="card-body">

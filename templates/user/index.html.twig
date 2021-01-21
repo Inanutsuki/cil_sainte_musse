@@ -7,59 +7,63 @@
 {% block body %}
 	<h1>{{ title }}</h1>
 
-	<table class="table-sm table-striped">
-		<thead>
-			<tr>
-				<th class="no-wrap" scope="col">Nom</th>
-				<th class="no-wrap" scope="col">Prénom</th>
-				<th class="no-wrap" scope="col">Email</th>
-				<th class="no-wrap" scope="col">Adresse</th>
-				<th class="no-wrap" scope="col">Ville</th>
-				<th class="no-wrap" scope="col">Code postal</th>
-				<th class="no-wrap" scope="col">Anniversaire</th>
-				<th class="no-wrap" scope="col">Roles</th>
-				<th class="no-wrap" scope="col">Status</th>
-				<th class="no-wrap" scope="col">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for user in users %}
+	<div class="container-fluid border-shadow py-3">
+		<table class="table-sm table-striped table-striped-user">
+			<thead>
 				<tr>
-					<td data-label="Nom">{{ user.lastName }}</td>
-					<td data-label="Prénom">{{ user.firstName }}</td>
-					<td data-label="Email">{{ user.email }}</td>
-					<td data-label="Adresse">{{ user.adresse }}</td>
-					<td data-label="Ville">{{ user.city }}</td>
-					<td data-label="Code postal">{{ user.zipCode }}</td>
-					<td data-label="Anniversaire">{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}</td>
-					<td data-label="Roles">
-						{% for role in user.roles %}
-							{% if role == "ROLE_USER" %}
-								Utilisateur
-							{% elseif  role == "ROLE_EDITOR" %}
-								Editeur
-							{% elseif  role == "ROLE_ASSEMBLY" %}
-								assemblée générale
-							{% elseif  role == "ROLE_ADMIN" %}
-								Admin
-							{% endif %}
-						{% endfor %}
-					</td>
-					<td data-label="Status">
-						{% for status in user.status %}
-							{{ status }}
-						{% endfor %}
-					</td>
-					<td data-label="Actions">
-						<a href="{{ path('user_show',{'id': user.id}) }}">montrer</a>
-						<a href="{{ path('user_edit', {'id': user.id}) }}">éditer</a>
-					</td>
+					<th class="no-wrap" scope="col">Nom</th>
+					<th class="no-wrap" scope="col">Prénom</th>
+					<th class="no-wrap" scope="col">Email</th>
+					<th class="no-wrap" scope="col">Adresse</th>
+					<th class="no-wrap" scope="col">Ville</th>
+					<th class="no-wrap" scope="col">Code postal</th>
+					<th class="no-wrap" scope="col">Anniversaire</th>
+					<th class="no-wrap" scope="col">Roles</th>
+					<th class="no-wrap" scope="col">Status</th>
+					<th class="no-wrap" scope="col">Actions</th>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="10">Pas d'utilisateur trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td data-label="Nom">{{ user.lastName }}</td>
+						<td data-label="Prénom">{{ user.firstName }}</td>
+						<td data-label="Email">{{ user.email }}</td>
+						<td data-label="Adresse">{{ user.adresse }}</td>
+						<td data-label="Ville">{{ user.city }}</td>
+						<td data-label="Code postal">{{ user.zipCode }}</td>
+						<td data-label="Anniversaire">{{ user.birthday ? user.birthday|date('d-m-Y') : '' }}</td>
+						<td data-label="Roles">
+							{% for role in user.roles %}
+								{% if role == "ROLE_USER" %}
+									Utilisateur
+								{% elseif  role == "ROLE_EDITOR" %}
+									Editeur
+								{% elseif  role == "ROLE_ASSEMBLY" %}
+									assemblée générale
+								{% elseif  role == "ROLE_ADMIN" %}
+									Admin
+								{% endif %}
+							{% endfor %}
+						</td>
+						<td data-label="Status">
+							{% for status in user.status %}
+								{{ status }}
+							{% endfor %}
+						</td>
+						<td data-label="Actions">
+							<a href="{{ path('user_show',{'id': user.id}) }}">montrer</a>
+							<a href="{{ path('user_edit', {'id': user.id}) }}">éditer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="10">Pas d'utilisateur trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
 {% endblock %}

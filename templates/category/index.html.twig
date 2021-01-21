@@ -1,35 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des categories{% endblock %}
+{% block title %}Liste des categories
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des categories</h1>
+	<h1>Liste des categories</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.title }}</td>
-                <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">Montrer</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">Pas de résultat trouvé</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('category_new') }}">Créer nouvelle catégorie</a>
+	<div class="container-fluid border-shadow mx-3">
+		<table class="table-sm table-striped table-striped-user">
+			<thead>
+				<tr>
+					<th class="no-wrap" scope="col">Id</th>
+					<th class="no-wrap" scope="col">Titre</th>
+					<th class="no-wrap" scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for category in categories %}
+					<tr>
+						<td data-label="Id">{{ category.id }}</td>
+						<td data-label="Titre">{{ category.title }}</td>
+						<td data-label="Actions">
+							<a href="{{ path('category_show', {'id': category.id}) }}">Montrer</a>
+							<a href="{{ path('category_edit', {'id': category.id}) }}">Editer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">Pas de résultat trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row row-nav my-3">
+		<div class="col">
+			<button class="btn btn-primary">
+				<a href="{{ path('category_new') }}">Créer nouvelle catégorie</a>
+			</button>
+		</div>
+	</div>
 {% endblock %}

@@ -8,25 +8,27 @@
 
 	<h1 class="text-center">Les actualités</h1>
 
-	<div class="row justify-content-center mb-3">
+	<div class="row justify-content-center">
 		{{ knp_pagination_render(posts) }}
 	</div>
 	{% for post in posts %}
 		<div class="container-fluid d-flex flex-column align-items-center">
-			<div class="card mb-3 col-md-12">
+			<div class="card my-3 col-md-12">
 				<div class="card-body">
 					<div class="news-title">
+						<div class="date">
+							<span>{{ post.createdAt|format_datetime('medium','none', locale='fr')}}</span>
+						</div>
 						<h3 class="card-title">{{post.title}}</h3>
+						<div class="author">
+							<span>{{ post.author }}</span>
+						</div>
 					</div>
-					<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
+					<img class="card-image-top img-fluid my-3" src="{{ vich_uploader_asset(post, 'imageFile') }}">
 					<p class="card-text">{{post.content | raw}}</p>
 					<div class="row block-line-up">
 						<div class="col">
-							<small class="text-muted">Ecrit par
-								{{ post.author }}
-								le
-								{{ post.createdAt|date('d m Y')}}
-								dans
+							<small class="text-muted">Dans la catégorie
 								{{ post.category.title }}</small>
 						</div>
 						<div class="col d-flex justify-content-end">
@@ -34,7 +36,7 @@
 
 								{% if app.user.id == post.author.id %}
 									<small class="text-muted mr-2">
-										<a href="{{ path('post_edit', {'id': post.id}) }}">modifier</a>
+										<a href="{{ path('post_edit', {'id': post.id}) }}">Modifier</a>
 									</small>
 									<small class="text-muted">
 										<a href="{{ path('my_posts', {'id': app.user.id}) }}">Voir mes artciles</a>
@@ -52,7 +54,7 @@
 			</div>
 		</div>
 	{% endfor %}
-	<div class="row justify-content-center mb-3">
+	<div class="row justify-content-center">
 		{{ knp_pagination_render(posts) }}
 	</div>
 

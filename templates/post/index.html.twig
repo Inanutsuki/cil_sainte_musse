@@ -6,73 +6,89 @@
 
 {% block body %}
 	<h1>{{ title }}</h1>
-
-	<a href="{{path('admin_post_index')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche la liste des Articles">Liste des Articles</button>
-	</a>
-	<a href="{{path('admin_post_not_valided')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les article en attente de validation">En attente de validation</button>
-	</a>
-	<a href="{{path('admin_post_valided')}}">
-		<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles validés">Articles validés</button>
-	</a>
-	{% if app.user.isAdmin %}
-		<a href="{{path('admin_post_members')}}">
-			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles pour les membres">Articles pour les membres</button>
-		</a>
-		<a href="{{path('admin_post_assembly')}}">
-			<button class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Affiche les articles pour l'assembléee">Articles pour l'assembléee</button>
-		</a>
-	{% endif %}
-
-	<table class="table-sm table-striped">
-		<thead>
-			<tr>
-				<th class="no-wrap" scope="col">Id</th>
-				<th class="no-wrap" scope="col">Titre</th>
-				<th class="no-wrap" scope="col">Auteur</th>
-				<th class="no-wrap" scope="col">Ajouté le</th>
-				<th class="no-wrap" scope="col">Modifié le</th>
-				<th class="no-wrap" scope="col">Validé</th>
-				{% if app.user.isAdmin %}
-					<th class="no-wrap" scope="col">Visible par</th>
-					<th class="no-wrap" scope="col">Actions</th>
-				{% endif %}
-			</tr>
-		</thead>
-		<tbody>
-			{% for post in posts %}
+	<div class="row justify-content-center">
+		<div class="row row-nav mb-4">
+			<div class="col">
+				<button class="btn btn-primary">
+					<a href="{{path('admin_post_index')}}">Liste des Articles</a>
+				</button>
+			</div>
+			<div class="col">
+				<button class="btn btn-primary">
+					<a href="{{path('admin_post_not_valided')}}">En attente de validation</a>
+				</button>
+			</div>
+			<div class="col">
+				<button class="btn btn-primary">
+					<a href="{{path('admin_post_valided')}}">Articles validés</a>
+				</button>
+			</div>
+			{% if app.user.isAdmin %}
+				<div class="col">
+					<button class="btn btn-primary">
+						<a href="{{path('admin_post_members')}}">Articles pour les membres</a>
+					</button>
+				</div>
+				<div class="col">
+					<button class="btn btn-primary">
+						<a href="{{path('admin_post_assembly')}}">Articles pour l'assembléee</a>
+					</button>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="container-fluid border-shadow py-3">
+		<table class="table-sm table-striped">
+			<thead>
 				<tr>
-					<td data-label="Id">{{ post.id }}</td>
-					<td data-label="Titre">{{ post.title }}</td>
-					<td data-label="Auteur">{{ post.author }}</td>
-					<td data-label="Ajouté le">{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
-					<td data-label="Modifié le">{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '<small class="text-muted">Pas modifié</small>' }}</td>
-					<td data-label="Validé">
-						{% if post.isValided == false %}En attente{% else %}Validé
-						{% endif %}
-					</td>
+					<th class="no-wrap" scope="col">Id</th>
+					<th class="no-wrap" scope="col">Titre</th>
+					<th class="no-wrap" scope="col">Auteur</th>
+					<th class="no-wrap" scope="col">Ajouté le</th>
+					<th class="no-wrap" scope="col">Modifié le</th>
+					<th class="no-wrap" scope="col">Validé</th>
 					{% if app.user.isAdmin %}
-						<td data-label="Visible par">
-							{% if post.onlyMembers == true and post.onlyAssembly == false %}membres
-								{% elseif post.onlyMembers == false and post.onlyAssembly == true %}assembléee
-								{% elseif post.onlyMembers == true and post.onlyAssembly == true %}assembléee/membre
-								{% else %}tout le monde
+						<th class="no-wrap" scope="col">Visible par</th>
+						<th class="no-wrap" scope="col">Actions</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for post in posts %}
+					<tr>
+						<td data-label="Id">{{ post.id }}</td>
+						<td data-label="Titre">{{ post.title }}</td>
+						<td data-label="Auteur">{{ post.author }}</td>
+						<td data-label="Ajouté le">{{ post.createdAt ? post.createdAt|date('d-m-Y') : '' }}</td>
+						<td data-label="Modifié le">{{ post.modifiedAt ? post.modifiedAt|date('d-m-Y') : '<small class="text-muted">Pas modifié</small>' }}</td>
+						<td data-label="Validé">
+							{% if post.isValided == false %}En attente{% else %}Validé
 							{% endif %}
 						</td>
-					{% endif %}
-					<td data-label="Actions">
-						<a href="{{ path('post_show', {'id': post.id}) }}">montrer</a>
-						<a href="{{ path('post_edit', {'id': post.id}) }}">éditer</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="6">Aucun article trouvé</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+						{% if app.user.isAdmin %}
+							<td data-label="Visible par">
+								{% if post.forMembers == true and post.forAssembly == false %}membres
+									{% elseif post.forMembers == false and post.forAssembly == true %}assembléee
+									{% elseif post.forMembers == true and post.forAssembly == true %}assembléee/membre
+									{% else %}tout le monde
+								{% endif %}
+							</td>
+						{% endif %}
+						<td data-label="Actions">
+							<a href="{{ path('post_show', {'id': post.id}) }}">montrer</a>
+							<a href="{{ path('post_edit', {'id': post.id}) }}">éditer</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="6">Aucun article trouvé</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+
+
 	{% if id is defined and app.user.id == id %}
 		<a class="btn btn-primary" href="{{ path('post_new') }}">Créer un nouvel article</a>
 	{% endif %}

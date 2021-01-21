@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,11 +43,13 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $firstName;
 
@@ -68,26 +69,31 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $adresse;
 
     /**
      * @ORM\Column(type="string", length=5)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $city;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $birthday;
 
     /**
      * @ORM\Column(name="roles", type="json_array")
+     * @Assert\NotBlank(message="Ce champs ne peut être vide.")
      */
     private $roles = array();
 
