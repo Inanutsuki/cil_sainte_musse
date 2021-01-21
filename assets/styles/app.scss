@@ -187,7 +187,7 @@ html {
         font-size: 43px;
         border-top-left-radius: 16px !important;
         letter-spacing: -6px;
-        text-shadow: 0 1px #a52b12, 0 2px #a52b12, 0 3px #fff, 0 4px #a52b12;
+        text-shadow: 0 1px $primary, 0 2px $primary, 0 3px #fff, 0 4px $primary;
     }
 
     .fixed-header {

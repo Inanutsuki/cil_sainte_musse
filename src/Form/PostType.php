@@ -25,7 +25,7 @@ class PostType extends AbstractType
                 'label' => 'Titre'
             ])
             ->add('content', CKEditorType::class, [
-                'label' => 'Contenue'
+                'label' => 'Contenu'
             ])
             ->add('category', EntityType::class, [
                 'label' => 'Choisir une catégorie',

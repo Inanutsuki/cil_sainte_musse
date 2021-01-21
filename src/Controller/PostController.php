@@ -18,13 +18,13 @@ use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 /**
  * @Route("/post")
- * @isGranted("ROLE_ADMIN")
  */
 class PostController extends AbstractController
 {
 
     /**
      * @Route("/new", name="post_new", methods={"GET","POST"})
+     * @isGranted("ROLE_EDITOR")
      */
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -65,6 +65,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/list/{id}", name="my_posts", methods={"GET"})
+     * @isGranted("ROLE_EDITOR")
      */
     public function myPosts(PostRepository $postRepository, int $id): Response
     {
@@ -81,6 +82,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/{id}", name="post_show", methods={"GET", "POST"})
+     * @isGranted("ROLE_EDITOR")
      */
     public function show(Post $post, HttpFoundationRequest $request, EntityManagerInterface $manager)
     {
@@ -112,6 +114,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="post_edit", methods={"GET","POST"})
+     * @isGranted("ROLE_EDITOR")
      */
     public function edit(Request $request, Post $post, EntityManagerInterface $manager): Response
     {
@@ -143,6 +146,7 @@ class PostController extends AbstractController
 
     /**
      * @Route("/{id}", name="post_delete", methods={"DELETE"})
+     * @isGranted("ROLE_EDITOR")
      */
     public function delete(Request $request, Post $post): Response
     {

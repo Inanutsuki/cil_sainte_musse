@@ -54,6 +54,7 @@ class UserType extends AbstractType
                 'entry_options'  => [
                     'label' => false,
                     'choices' => [
+                        'Utilisateur' => "Utilisateur",
                         'Membre' => "Membre",
                         'Membre AG' => "Membre AG",
                         'Secrétaire' => "Secrétaire",

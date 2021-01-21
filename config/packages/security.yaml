@@ -45,10 +45,12 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/assembly, roles: ROLE_ASSEMBLY }
         - { path: ^/editor, roles: ROLE_EDITOR }
+        - { path: ^/member/, roles: ROLE_MEMBER }
         - { path: ^/profile, roles: ROLE_USER }
 
     role_hierarchy:
         ROLE_USER: ROLE_USER
-        ROLE_EDITOR: ROLE_USER
+        ROLE_MEMBER: ROLE_USER
+        ROLE_EDITOR: ROLE_MEMBER
         ROLE_ASSEMBLY: ROLE_EDITOR
         ROLE_ADMIN: ROLE_ASSEMBLY

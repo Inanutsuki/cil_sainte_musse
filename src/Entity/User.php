@@ -24,13 +24,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface, \Serializable
 {
     public const ROLE_USER = "ROLE_USER";
+    public const ROLE_MEMBER = "ROLE_MEMBER";
     public const ROLE_EDITOR = "ROLE_EDITOR";
     public const ROLE_ASSEMBLY = "ROLE_ASSEMBLY";
     public const ROLE_ADMIN = "ROLE_ADMIN";
     public const EDITABLE_ROLES = [
         'Utilisateur' => Self::ROLE_USER,
+        'Membre' => Self::ROLE_MEMBER,
         'Editeur' => Self::ROLE_EDITOR,
-        'assemblée générale' => Self::ROLE_ASSEMBLY,
+        'Assemblée générale' => Self::ROLE_ASSEMBLY,
         'Admin' => Self::ROLE_ADMIN,
     ];
 
@@ -125,6 +127,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="json_array")
      */
     private $status = [
+        'En attente',
         'Membre',
         'Membre AG',
         'Secrétaire',
@@ -299,7 +302,7 @@ class User implements UserInterface, \Serializable
     public function getStatus(): ?array
     {
         if (empty($this->status)) {
-            return 'member';
+            return 'En attente';
         }
         return $this->status;
     }

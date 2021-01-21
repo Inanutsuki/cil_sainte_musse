@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @isGranted("ROLE_USER")
+ * @isGranted("ROLE_MEMBER")
  */
 class MemberController extends AbstractController
 {
