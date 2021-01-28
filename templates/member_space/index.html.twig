@@ -15,24 +15,17 @@
 				<div class="card mb-3 col-md-12">
 					<div class="card-body">
 						<div class="news-title">
+							<div class="date">
+								<span>{{ post.createdAt|date('d m Y')}}</span>
+							</div>
 							<h3 class="card-title">{{post.title}}</h3>
+							<div class="author">
+								<span>{{ post.author }}</span>
+							</div>
 						</div>
 						<img class="card-image-top img-fluid" src="{{ vich_uploader_asset(post, 'imageFile') }}">
-						<p class="card-text">{{post.content}}</p>
-						<div class="row">
-							<div class="col">
-								<small class="text-muted">Ecrit par
-									{{ post.author }}
-									le
-									{{ post.createdAt|date('d m Y')}}
-									{% if post.category.title != null %}
-										dans
-										{{ post.category.title }}
-										{% else %}
-									{% endif %}
-								</small>
-							</div>
-							<div class="col d-flex justify-content-end">
+						<p class="card-text">{{post.content | raw}}</p>
+							<div class="col d-flex justify-content-end block-line-up">
 								{% if app.user.id is defined %}
 
 									<small class="text-muted mr-2">

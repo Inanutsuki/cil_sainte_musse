@@ -67,11 +67,22 @@
 		{% for comment in post.comments %}
 			<div class="comment">
 				<div class="row">
-					<div class="col-3">
-						{{ comment.author }}
-						(<small>{{comment.createdAt | date('d/m/Y à H:i')}}</small>)
+					<div class="col-md-4 col-10">
+						<div>
+							{{ comment.author }}
+							(<small>{{comment.createdAt | date('d/m/Y à H:i')}}</small>)
+						</div>
+						{% if app.user.id == comment.post.author.id or app.user.roles[0] == "ROLE_ADMIN" %}
+							<div class="mt-2 mb-3">
+								<form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" onsubmit="return confirm('Etes vous sur de vouloir le supprimer ?');">
+									<input type="hidden" name="_method" value="DELETE">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+									<a href="">Supprimer</a>
+								</form>
+							</div>
+						{% endif %}
 					</div>
-					<div class="col">
+					<div class="col-md-8 col-10">
 						{{comment.content | raw}}
 					</div>
 				</div>

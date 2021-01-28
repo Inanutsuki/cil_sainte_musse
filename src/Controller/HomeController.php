@@ -77,7 +77,7 @@ class HomeController extends AbstractController
      */
     public function actualities(PostRepository $postRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $data = $postRepository->findBy(array('isValided' => true), array('createdAt' => 'DESC'));
+        $data = $postRepository->findBy(array('isValided' => true, 'forIndex' => false, 'forMembers' => false, 'forAssembly' => false), array('createdAt' => 'DESC'));
         $posts = $paginator->paginate(
             $data, // On passe les données.
             $request->query->getInt('page', 1), // Numéro de la page en cours, 1 par défaut.
